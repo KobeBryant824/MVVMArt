@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <Button
+                android:id="@+id/mvp_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="200dp"
+                android:onClick="mvp"
+                android:text="mvp"/>
+
+        <Button
+                android:id="@+id/permission_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mvp_btn"
+                android:layout_centerHorizontal="true"
+                android:onClick="permission"
+                android:text="Permission"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/permission_btn"
+                android:layout_centerHorizontal="true"
+                android:onClick="dataBinding"
+                android:text="Databinding"/>
+
+        <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="@android:color/white"
+                android:clickable="true"
+                app:elevation="8dp"
+                app:menu="@menu/bottom_navigation"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </RelativeLayout>
+</layout>

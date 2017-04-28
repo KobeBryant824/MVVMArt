@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <!--自定义自定义Binding类名称 -->
+    <!-- MyBinding -> com.cxh.mvvmsample.databinding.MyBinding;-->
+    <!--.MyBinding -> com.cxh.mvvmsample.MyBinding;-->
+    <data class="MyBinding">
+
+        <!--同个xml里有两个相同类名用alias重命名-->
+        <import type="com.cxh.mvvmsample.util.string.MyStringUtils"/>
+
+        <import
+                type="com.cxh.mvvmsample.util.MyStringUtils"
+                alias="StringUtils"/>
+
+        <!--导入相关包-->
+        <import type="android.view.View"/>
+
+        <!--所有定义variable在java代码都要赋值，view才有数据-->
+        <variable
+                name="user"
+                type="com.cxh.mvvmsample.model.api.User"/>
+
+        <variable
+                name="okText"
+                type="String"/>
+
+        <import type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
+
+        <variable
+                name="command"
+                type="DataBindingActivity"/>
+
+        <variable
+                name="listener"
+                type="com.cxh.mvvmsample.listener.OkListener"/>
+
+    </data>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:divider="@color/colorAccent">
+
+                <TableRow
+                        android:background="@android:color/darker_gray">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Display Name: "/>
+
+                    <!--Null合并操作,?? - 左边的对象如果它不是null，选择左边的对象；或者如果它是null，选择右边的对象-->
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{user.displayName ?? user.lastName}"/>
+                </TableRow>
+
+                <TableRow android:background="@android:color/darker_gray">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="First Name: "/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{StringUtils.capitalize(user.firstName)}"/>
+                </TableRow>
+
+                <TableRow android:background="@android:color/darker_gray">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Last Name: "/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{user.lastName}"/>
+                </TableRow>
+
+                <TableRow android:background="@android:color/darker_gray">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="Age: "/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{String.valueOf(user.age)}"/>
+
+                    <!--三元运算 ?:-->
+                    <TextView
+                            android:visibility="@{user.isAdult ? View.VISIBLE : View.GONE}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="italic"
+                            android:textColor="@android:color/holo_red_light"
+                            android:text="Adult"/>
+                </TableRow>
+            </TableLayout>
+
+            <include
+                    layout="@layout/include_ok"
+                    bind:okText="@{okText}"
+                    bind:listener="@{listener}"
+                    bind:command="@{command}"
+                    bind:user="@{user}"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

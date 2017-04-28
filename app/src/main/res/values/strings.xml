@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MVVMSample</string>
+
+    <!--shortcuts-->
+    <string name="shortcut_label_add_package">MainActivity</string>
+    <string name="shortcut_label_scan_code">SecondActivity</string>
+    <string name="shortcut_label_search">SecondActivityWithAction</string>
+    <!--shortcuts end-->
+
+    <string name="all">All</string>
+    <string name="on_the_way">On the way</string>
+    <string name="delivered">Delivered</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="toast_hint">提示信息</string>
+</resources>
