@@ -8,8 +8,16 @@ import android.view.View;
 
 import com.cxh.mvvmsample.manager.ActivityManager;
 import com.cxh.mvvmsample.manager.RxDisposable;
+import com.cxh.mvvmsample.model.api.entity.Event;
 import com.hss01248.pagestate.PageManager;
 import com.zhy.autolayout.AutoLayoutActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import static com.cxh.mvvmsample.AppConstants.ON_FAILED;
+import static com.cxh.mvvmsample.AppConstants.ON_SUCCESS;
 
 /**
  * 屏幕自适配方案
@@ -23,6 +31,7 @@ public abstract class BaseAutoActivity extends AutoLayoutActivity {
         super.onCreate(savedInstanceState);
         setContentView();
         ActivityManager.getInstance().pushOneActivity(this);
+        EventBus.getDefault().register(this);
 
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
@@ -70,15 +79,30 @@ public abstract class BaseAutoActivity extends AutoLayoutActivity {
         }
     }
 
-    protected void getBundleExtras(Bundle extras) {
-    }
-
     @Override
     protected void onDestroy() {
         RxDisposable.clear();
         super.onDestroy();
         ActivityManager.getInstance().popOneActivity(this);
+        EventBus.getDefault().unregister(this);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainEvent(String tag) {
+        switch (tag) {
+            case ON_SUCCESS:
+                mPageStateManager.showContent();
+                break;
+            case ON_FAILED:
+                mPageStateManager.showError();
+                break;
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainEvent(Event event) {}
+
+    protected void getBundleExtras(Bundle extras) {}
 
     protected abstract void setContentView();
 

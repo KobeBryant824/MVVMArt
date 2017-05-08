@@ -8,13 +8,12 @@ import com.cxh.mvvmsample.base.BaseAutoActivity;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.databinding.MyBinding;
 import com.cxh.mvvmsample.listener.OkListener;
-import com.cxh.mvvmsample.model.api.User;
+import com.cxh.mvvmsample.model.api.entity.User;
 import com.cxh.mvvmsample.util.ToastUtils;
 
-import io.reactivex.functions.Action;
 
 /**
- * Desc,
+ * Desc, 一些简单使用
  * Created by Hai (haigod7@gmail.com) on 2017/4/28 13:58.
  */
 public class DataBindingActivity extends BaseAutoActivity implements OkListener {
@@ -38,18 +37,15 @@ public class DataBindingActivity extends BaseAutoActivity implements OkListener 
         mBinding.setUser(user);
         mBinding.setOkText("hello点我");
         mBinding.setListener(this);
-        mBinding.setCommand(this);
+        mBinding.setActivity(this);
+
     }
 
-    public final ReplyCommand mReplyCommand = new ReplyCommand(new Action() {
-        @Override
-        public void run() throws Exception {
-            ToastUtils.showToast(DataBindingActivity.this, "ReplyCommand");
-        }
-    });
+    public final ReplyCommand mReplyCommand = new ReplyCommand(() -> ToastUtils.showToast(DataBindingActivity.this, "ReplyCommand"));
 
     @Override
     public void onClickOk(View view) {
         ToastUtils.showToast(this, "OkListener");
     }
+
 }

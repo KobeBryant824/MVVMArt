@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-                name="command"
-                type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
+            name="activity"
+            type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
 
         <variable
-                name="listener"
-                type="com.cxh.mvvmsample.listener.OkListener"/>
+            name="listener"
+            type="com.cxh.mvvmsample.listener.OkListener"/>
 
         <variable
-                name="user"
-                type="com.cxh.mvvmsample.model.api.User"/>
+            name="user"
+            type="com.cxh.mvvmsample.model.api.entity.User"/>
 
         <variable
-                name="okText"
-                type="String" />
+            name="okText"
+            type="String"/>
     </data>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="user.firstName"
-                android:text="@{user.firstName}"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.firstName}"
+            tools:text="user.firstName"/>
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{listener.onClickOk}"
-                android:text="@{okText}"
-                tools:text="Listener"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{listener.onClickOk}"
+            android:text="@{okText}"
+            tools:text="Listener"/>
 
         <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{okText}"
-                bind:clickCommand="@{command.mReplyCommand}"
-                tools:text="Command"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{okText}"
+            bind:clickCommand="@{activity.mReplyCommand}"
+            tools:text="Command"/>
     </LinearLayout>
 </layout>

@@ -81,6 +81,11 @@
 
     </declare-styleable>
 
+    <declare-styleable name="SimpleDraweeView">
+        <!-- require String to load Image"-->
+        <attr name="path" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="ViewGroup">
         <attr name="clickCommand" />
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
@@ -120,11 +125,6 @@
     <declare-styleable name="NestedScrollView">
         <!-- require ReplyCommand<NestScrollDataWrapper> -->
         <attr name="onScrollChangeCommand" />
-    </declare-styleable>
-
-    <declare-styleable name="SimpleDraweeView">
-        <!-- require String to load Image"-->
-        <attr name="uri" />
     </declare-styleable>
 
     <declare-styleable name="ScrollView">
