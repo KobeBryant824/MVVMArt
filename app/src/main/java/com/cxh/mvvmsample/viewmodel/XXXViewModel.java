@@ -1,13 +1,14 @@
 package com.cxh.mvvmsample.viewmodel;
 
 import android.databinding.ObservableField;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnRequestListener;
-import com.cxh.mvvmsample.model.api.entity.Event;
 import com.cxh.mvvmsample.model.api.XXXApi;
+import com.cxh.mvvmsample.model.api.entity.Event;
 import com.cxh.mvvmsample.model.repository.XXXDataRepository;
 import com.cxh.mvvmsample.util.EventBusUtils;
 
@@ -39,6 +40,7 @@ public class XXXViewModel implements BaseViewModel {
         new XXXDataRepository().requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
             @Override
             public void onSuccess(XXXApi.WelcomeEntity welcomeEntity) {
+                Log.e("event", "onSuccess: " + System.currentTimeMillis());
 
                 EventBusUtils.post(ON_SUCCESS);
 

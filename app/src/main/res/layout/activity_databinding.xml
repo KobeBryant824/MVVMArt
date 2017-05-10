@@ -7,6 +7,7 @@
     <!--.MyBinding -> com.cxh.mvvmsample.MyBinding;-->
     <data class="MyBinding">
 
+
         <!--同个xml里有两个相同类名用alias重命名-->
         <import type="com.cxh.mvvmsample.util.string.MyStringUtils"/>
 
@@ -17,6 +18,10 @@
         <!--导入相关包-->
         <import type="android.view.View"/>
 
+        <import type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
+
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
+
         <!--所有定义variable在java代码都要赋值，view才有数据-->
         <variable
             name="user"
@@ -25,9 +30,6 @@
         <variable
             name="okText"
             type="String"/>
-
-
-        <import type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
 
         <variable
             name="activity"
@@ -39,112 +41,156 @@
 
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:divider="@color/colorAccent">
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:divider="@color/colorAccent">
+            <TableRow
+                android:background="@android:color/darker_gray">
 
-                <TableRow
-                    android:background="@android:color/darker_gray">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Display Name: "/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Display Name: "/>
+                <!--Null合并操作,?? - 左边的对象如果它不是null，选择左边的对象；或者如果它是null，选择右边的对象-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{user.displayName ?? user.lastName}"/>
+            </TableRow>
 
-                    <!--Null合并操作,?? - 左边的对象如果它不是null，选择左边的对象；或者如果它是null，选择右边的对象-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{user.displayName ?? user.lastName}"/>
-                </TableRow>
+            <TableRow android:background="@android:color/darker_gray">
 
-                <TableRow android:background="@android:color/darker_gray">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="First Name: "/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="First Name: "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{StringUtils.capitalize(user.firstName)}"/>
+            </TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{StringUtils.capitalize(user.firstName)}"/>
-                </TableRow>
+            <TableRow android:background="@android:color/darker_gray">
 
-                <TableRow android:background="@android:color/darker_gray">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Last Name: "/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Last Name: "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{user.lastName}"/>
+            </TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{user.lastName}"/>
-                </TableRow>
+            <TableRow android:background="@android:color/darker_gray">
 
-                <TableRow android:background="@android:color/darker_gray">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Age: "/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="Age: "/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{String.valueOf(user.age)}"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(user.age)}"/>
+                <!--三元运算 ?:-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adult"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textStyle="italic"
+                    android:visibility="@{user.isAdult ? View.VISIBLE : View.GONE}"/>
+            </TableRow>
+        </TableLayout>
 
-                    <!--三元运算 ?:-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Adult"
-                        android:textColor="@android:color/holo_red_light"
-                        android:textStyle="italic"
-                        android:visibility="@{user.isAdult ? View.VISIBLE : View.GONE}"/>
-                </TableRow>
-            </TableLayout>
+        <include
+            layout="@layout/include_ok"
+            bind:activity="@{activity}"
+            bind:listener="@{listener}"
+            bind:okText="@{okText}"
+            bind:user="@{user}"/>
 
-            <include
-                layout="@layout/include_ok"
-                bind:activity="@{activity}"
-                bind:listener="@{listener}"
-                bind:okText="@{okText}"
-                bind:user="@{user}"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="双向绑定实例:请随意输入"
+            android:text="@={user.firstName}"
+            android:textSize="14dp"/>
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:text="@={user.firstName}"
-                android:hint="双向绑定实例:请随意输入"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@{`#00ff00`}"
+            android:onClick="inflateViewStub"
+            android:text="Inflate the ViewStub"/>
+
+        <ViewStub
+            android:id="@+id/view_stub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout="@layout/view_stub_1"/>
+        <LinearLayout
+            style="?buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <Button
-                android:layout_width="wrap_content"
-                android:text="@{user.firstName}"
-                android:background="@{`#00ff00`}"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/add"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClickListener="@{() -> activity.addItem()}"
+                android:text="Add Item"/>
+
+            <Button
+                android:id="@+id/remove"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClickListener="@{() -> activity.removeItem()}"
+                android:text="Remove Item"/>
         </LinearLayout>
 
-    </ScrollView>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:itemBinding="@{activity.itemBinding}"
+            bind:items="@{activity.items}"
+            bind:layoutManager="@{LayoutManagers.linear()}"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:adapter="@{activity.adapter}"
+            bind:itemBinding="@{activity.multipleItems}"
+            bind:items="@{activity.headerFooterItems}"
+            bind:layoutManager="@{LayoutManagers.linear()}"
+            bind:viewHolder="@{activity.viewHolder}"/>
+
+    </LinearLayout>
+
 
 </layout>

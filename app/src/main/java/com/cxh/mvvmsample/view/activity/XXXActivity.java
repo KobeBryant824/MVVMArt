@@ -42,5 +42,14 @@ public class XXXActivity extends BaseAutoActivity {
         super.onMainEvent(event);
         if (event.getTag().equals(REPLY_COMMAND))
             ToastUtils.showToast(this, "click a replyCommand: " + event.getData());
+        int i =0;
+        switch (i){
+            case 0 :
+
+                return;
+            default:
+
+                return;
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.cxh.mvvmsample.manager.ActivityManager;
@@ -91,6 +92,7 @@ public abstract class BaseAutoActivity extends AutoLayoutActivity {
     public void onMainEvent(String tag) {
         switch (tag) {
             case ON_SUCCESS:
+                Log.e("event", "onMainEvent: " + System.currentTimeMillis());
                 mPageStateManager.showContent();
                 break;
             case ON_FAILED:
