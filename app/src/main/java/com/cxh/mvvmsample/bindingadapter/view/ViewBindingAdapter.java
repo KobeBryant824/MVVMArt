@@ -5,16 +5,20 @@ import android.view.View;
 
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 
+
 /**
  * Created by kelin on 16-3-24.
  */
 public final class ViewBindingAdapter {
 
     @BindingAdapter({"clickCommand"})
-    public static void clickCommand(View view, final ReplyCommand<View> clickCommand) {
-        view.setOnClickListener(v -> {
-            if (clickCommand != null) {
-                clickCommand.execute(v);
+    public static void clickCommand(View view, final ReplyCommand clickCommand) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (clickCommand != null) {
+                    clickCommand.execute();
+                }
             }
         });
     }
@@ -35,11 +39,23 @@ public final class ViewBindingAdapter {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (onFocusChangeCommand != null) {
-                    onFocusChangeCommand.execute1(hasFocus);
+                    onFocusChangeCommand.execute(hasFocus);
                 }
             }
         });
     }
 
+//    @BindingAdapter({"onTouchCommand"})
+//    public static void onTouchCommand(View view, final ResponseCommand<MotionEvent, Boolean> onTouchCommand) {
+//        view.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (onTouchCommand != null) {
+//                    return onTouchCommand.execute(event);
+//                }
+//                return false;
+//            }
+//        });
+//    }
 }
 

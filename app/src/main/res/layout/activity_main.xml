@@ -12,8 +12,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="200dp"
-                android:onClick="mvp"
-                android:text="mvp"/>
+                android:text="mvvm"/>
 
         <Button
                 android:id="@+id/permission_btn"

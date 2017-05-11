@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="activity"
-            type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
-
-        <variable
             name="listener"
             type="com.cxh.mvvmsample.listener.OkListener"/>
 
@@ -20,6 +16,10 @@
         <variable
             name="okText"
             type="String"/>
+
+        <variable
+            name="viewModel"
+            type="com.cxh.mvvmsample.viewmodel.DataBindingViewModel"/>
     </data>
 
     <LinearLayout
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{okText}"
-            bind:clickCommand="@{activity.mReplyCommand}"
+            bind:clickCommand="@{viewModel.mReplyCommand}"
             tools:text="Command"/>
     </LinearLayout>
 </layout>

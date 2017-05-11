@@ -16,6 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static android.R.attr.tag;
 import static com.cxh.mvvmsample.AppConstants.ON_FAILED;
 import static com.cxh.mvvmsample.AppConstants.ON_SUCCESS;
 
@@ -93,8 +94,8 @@ public abstract class BaseOldActivity extends RxAppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(String tag) {
-        switch (tag) {
+    public void onMainEvent(String msg) {
+        switch (msg) {
             case ON_SUCCESS:
                 mPageStateManager.showContent();
                 break;
@@ -105,9 +106,11 @@ public abstract class BaseOldActivity extends RxAppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(Event event) {}
+    public void onMainEvent(Event event) {
+    }
 
-    protected void getBundleExtras(Bundle extras) {}
+    protected void getBundleExtras(Bundle extras) {
+    }
 
     protected abstract void setContentView();
 

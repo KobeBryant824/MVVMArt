@@ -7,5 +7,5 @@ package com.cxh.mvvmsample.base;
  */
 public interface BaseViewModel {
 
-    void getData(); // 获取M层请求的数据结果
+    void getDataFromModel(); // 获取M层请求的数据结果
 }

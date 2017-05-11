@@ -1,7 +1,6 @@
 package com.cxh.mvvmsample.viewmodel;
 
 import android.databinding.ObservableField;
-import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.cxh.mvvmsample.base.BaseViewModel;
@@ -11,11 +10,13 @@ import com.cxh.mvvmsample.model.api.XXXApi;
 import com.cxh.mvvmsample.model.api.entity.Event;
 import com.cxh.mvvmsample.model.repository.XXXDataRepository;
 import com.cxh.mvvmsample.util.EventBusUtils;
+import com.socks.library.KLog;
 
 import io.reactivex.functions.Action;
 
 import static com.cxh.mvvmsample.AppConstants.ON_FAILED;
 import static com.cxh.mvvmsample.AppConstants.ON_SUCCESS;
+import static com.cxh.mvvmsample.AppConstants.XXXVIEWMODEL_MREPLYCOMMAND;
 
 /**
  * 数据处理中心，不处理UI，不持有Activity
@@ -23,24 +24,22 @@ import static com.cxh.mvvmsample.AppConstants.ON_SUCCESS;
  */
 public class XXXViewModel implements BaseViewModel {
 
-    public static final String REPLY_COMMAND = "ReplyCommand";
-
     public final ObservableField<String> mPath = new ObservableField<>();
     public final ObservableField<XXXApi.WelcomeEntity> mWelcomeEntity = new ObservableField<>();
     private static int index = 0;
     private String mData;
 
     public XXXViewModel() {
-        getData();
+        getDataFromModel();
     }
 
     @Override
-    public void getData() {
-        // 请求M层数据
+    public void getDataFromModel() {
+        // 请求 M 层数据
         new XXXDataRepository().requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
             @Override
             public void onSuccess(XXXApi.WelcomeEntity welcomeEntity) {
-                Log.e("event", "onSuccess: " + System.currentTimeMillis());
+                KLog.e(System.currentTimeMillis());
 
                 EventBusUtils.post(ON_SUCCESS);
 
@@ -70,7 +69,7 @@ public class XXXViewModel implements BaseViewModel {
     public final ReplyCommand mReplyCommand = new ReplyCommand(new Action() {
         @Override
         public void run() throws Exception {
-            EventBusUtils.post(new Event<>(REPLY_COMMAND, mData));
+            EventBusUtils.post(new Event<>(XXXVIEWMODEL_MREPLYCOMMAND, mData));
         }
     });
 }

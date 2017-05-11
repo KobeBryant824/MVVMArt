@@ -10,7 +10,8 @@ import com.cxh.mvvmsample.util.ToastUtils;
 import com.cxh.mvvmsample.viewmodel.XXXViewModel;
 import com.socks.library.KLog;
 
-import static com.cxh.mvvmsample.viewmodel.XXXViewModel.REPLY_COMMAND;
+import static com.cxh.mvvmsample.AppConstants.XXXVIEWMODEL_MREPLYCOMMAND;
+
 
 public class XXXActivity extends BaseAutoActivity {
 
@@ -40,16 +41,9 @@ public class XXXActivity extends BaseAutoActivity {
     @Override
     public void onMainEvent(Event event) {
         super.onMainEvent(event);
-        if (event.getTag().equals(REPLY_COMMAND))
+        KLog.e();
+        if (event.getTag().equals(XXXVIEWMODEL_MREPLYCOMMAND))
             ToastUtils.showToast(this, "click a replyCommand: " + event.getData());
-        int i =0;
-        switch (i){
-            case 0 :
 
-                return;
-            default:
-
-                return;
-        }
     }
 }

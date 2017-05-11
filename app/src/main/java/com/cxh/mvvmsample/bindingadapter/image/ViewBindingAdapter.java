@@ -2,8 +2,6 @@ package com.cxh.mvvmsample.bindingadapter.image;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingConversion;
-import android.databinding.BindingMethod;
-import android.databinding.BindingMethods;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -11,8 +9,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.facebook.common.executors.UiThreadImmediateExecutorService;

@@ -7,7 +7,6 @@
     <!--.MyBinding -> com.cxh.mvvmsample.MyBinding;-->
     <data class="MyBinding">
 
-
         <!--同个xml里有两个相同类名用alias重命名-->
         <import type="com.cxh.mvvmsample.util.string.MyStringUtils"/>
 
@@ -17,8 +16,6 @@
 
         <!--导入相关包-->
         <import type="android.view.View"/>
-
-        <import type="com.cxh.mvvmsample.view.activity.DataBindingActivity"/>
 
         <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers"/>
 
@@ -32,19 +29,20 @@
             type="String"/>
 
         <variable
-            name="activity"
-            type="DataBindingActivity"/>
-
-        <variable
             name="listener"
             type="com.cxh.mvvmsample.listener.OkListener"/>
 
-    </data>
+        <variable
+            name="viewModel"
+            type="com.cxh.mvvmsample.viewmodel.DataBindingViewModel"/>
 
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -125,17 +123,28 @@
 
         <include
             layout="@layout/include_ok"
-            bind:activity="@{activity}"
             bind:listener="@{listener}"
             bind:okText="@{okText}"
-            bind:user="@{user}"/>
+            bind:user="@{user}"
+            bind:viewModel="@{viewModel}"/>
 
-        <EditText
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="双向绑定实例:请随意输入"
-            android:text="@={user.firstName}"
-            android:textSize="14dp"/>
+            android:gravity="center">
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@={user.firstName}"
+                android:textSize="14dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="双向绑定演示,请随意输入"/>
+        </LinearLayout>
+
 
         <Button
             android:layout_width="wrap_content"
@@ -149,18 +158,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout="@layout/view_stub_1"/>
+
         <LinearLayout
             style="?buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!--android:onClickListener 绑定 View 的 setOnClickListener()-->
             <Button
                 android:id="@+id/add"
                 style="?buttonBarButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClickListener="@{() -> activity.addItem()}"
+                android:onClickListener="@{() -> viewModel.addItem()}"
                 android:text="Add Item"/>
 
             <Button
@@ -169,26 +180,35 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClickListener="@{() -> activity.removeItem()}"
+                android:onClickListener="@{() -> viewModel.removeItem()}"
                 android:text="Remove Item"/>
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
+        <!--android:refreshing 绑定 SwipeRefreshLayout 的 setRefreshing(）-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            bind:itemBinding="@{activity.itemBinding}"
-            bind:items="@{activity.items}"
-            bind:layoutManager="@{LayoutManagers.linear()}"/>
+            android:refreshing="@{viewModel.viewStyle.isRefreshing}"
+            bind:onRefreshCommand="@{viewModel.onRefreshCommand}">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                bind:itemBinding="@{viewModel.itemBinding}"
+                bind:items="@{viewModel.items}"
+                bind:layoutManager="@{LayoutManagers.linear()}"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            bind:adapter="@{activity.adapter}"
-            bind:itemBinding="@{activity.multipleItems}"
-            bind:items="@{activity.headerFooterItems}"
+            android:layout_marginTop="10dp"
+            bind:adapter="@{viewModel.adapter}"
+            bind:itemBinding="@{viewModel.multipleItems}"
+            bind:items="@{viewModel.headerFooterItems}"
             bind:layoutManager="@{LayoutManagers.linear()}"
-            bind:viewHolder="@{activity.viewHolder}"/>
+            bind:viewHolder="@{viewModel.viewHolder}"/>
 
     </LinearLayout>
 
