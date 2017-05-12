@@ -39,6 +39,11 @@ public class MainActivity extends BaseAutoActivity {
     }
 
     @Override
+    protected boolean registerEventBus() {
+        return true;
+    }
+
+    @Override
     public void RetryEvent() {
 
     }

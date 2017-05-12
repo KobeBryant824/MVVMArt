@@ -13,12 +13,9 @@ public final class ViewBindingAdapter {
 
     @BindingAdapter({"clickCommand"})
     public static void clickCommand(View view, final ReplyCommand clickCommand) {
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (clickCommand != null) {
-                    clickCommand.execute();
-                }
+        view.setOnClickListener(v -> {
+            if (clickCommand != null) {
+                clickCommand.execute();
             }
         });
     }
@@ -35,12 +32,9 @@ public final class ViewBindingAdapter {
 
     @BindingAdapter({"onFocusChangeCommand"})
     public static void onFocusChangeCommand(View view, final ReplyCommand<Boolean> onFocusChangeCommand) {
-        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (onFocusChangeCommand != null) {
-                    onFocusChangeCommand.execute(hasFocus);
-                }
+        view.setOnFocusChangeListener((v, hasFocus) -> {
+            if (onFocusChangeCommand != null) {
+                onFocusChangeCommand.execute(hasFocus);
             }
         });
     }

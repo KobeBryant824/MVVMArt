@@ -7,19 +7,14 @@ import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnRequestListener;
 import com.cxh.mvvmsample.model.api.XXXApi;
-import com.cxh.mvvmsample.model.api.entity.Event;
+import com.cxh.mvvmsample.model.api.entity.event.XXXViewModelEvent;
 import com.cxh.mvvmsample.model.repository.XXXDataRepository;
 import com.cxh.mvvmsample.util.EventBusUtils;
-import com.socks.library.KLog;
 
 import io.reactivex.functions.Action;
 
-import static com.cxh.mvvmsample.AppConstants.ON_FAILED;
-import static com.cxh.mvvmsample.AppConstants.ON_SUCCESS;
-import static com.cxh.mvvmsample.AppConstants.XXXVIEWMODEL_MREPLYCOMMAND;
-
 /**
- * 数据处理中心，不处理UI，不持有Activity
+ * 数据处理中心，不处理 UI，不持有 Activity
  * Created by Hai (haigod7@gmail.com) on 2017/4/26 15:28.
  */
 public class XXXViewModel implements BaseViewModel {
@@ -39,9 +34,7 @@ public class XXXViewModel implements BaseViewModel {
         new XXXDataRepository().requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
             @Override
             public void onSuccess(XXXApi.WelcomeEntity welcomeEntity) {
-                KLog.e(System.currentTimeMillis());
-
-                EventBusUtils.post(ON_SUCCESS);
+                EventBusUtils.postSuccessEvent();
 
                 mData = welcomeEntity.getData().toString();
                 index++;
@@ -61,7 +54,7 @@ public class XXXViewModel implements BaseViewModel {
 
             @Override
             public void onFailed() {
-                EventBusUtils.post(ON_FAILED);
+                EventBusUtils.postFailedEvent();
             }
         });
     }
@@ -69,7 +62,7 @@ public class XXXViewModel implements BaseViewModel {
     public final ReplyCommand mReplyCommand = new ReplyCommand(new Action() {
         @Override
         public void run() throws Exception {
-            EventBusUtils.post(new Event<>(XXXVIEWMODEL_MREPLYCOMMAND, mData));
+            EventBusUtils.post(new XXXViewModelEvent(mData));
         }
     });
 }

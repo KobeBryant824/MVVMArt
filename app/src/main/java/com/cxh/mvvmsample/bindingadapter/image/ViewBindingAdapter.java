@@ -28,7 +28,7 @@ import com.socks.library.KLog;
 public final class ViewBindingAdapter {
 
     /**
-     * setBackground接收的是一个Drawable对象，而我们传入的是个string，所以我们此处可以用@BindingConversion来转换一下
+     * setBackground 接收的是一个 Drawable 对象，而我们传入的是个 String，所以我们此处可以用 @BindingConversion 来转换一下
      */
     @BindingConversion
     public static Drawable colorToDrawable(String color) {
@@ -45,7 +45,8 @@ public final class ViewBindingAdapter {
     }
 
     /**
-     * 把上面的path换成uri，此时这个会覆盖上面的方法，因为SimpleDraweeView是ImageView的子类，requireAll 参数是否全部必须
+     * 此函数可能会造成内存泄漏
+     * 把上面的 path 换成 uri，此时这个会覆盖上面的方法，因为 SimpleDraweeView 是 ImageView 的子类，requireAll 参数是否全部必须
      */
     @BindingAdapter(value = {"uri", "placeholderImageRes", "request_width", "request_height", "onSuccessCommand", "onFailureCommand"}, requireAll = false)
     public static void loadImage(final ImageView imageView, String uri,
@@ -76,7 +77,6 @@ public final class ViewBindingAdapter {
 
                 @Override
                 protected void onNewResultImpl(Bitmap bitmap) {
-                    KLog.d("", bitmap.getWidth(), bitmap.getHeight());
                     imageView.setImageBitmap(bitmap);
                     if (onSuccessCommand != null) {
                         onSuccessCommand.execute(bitmap);

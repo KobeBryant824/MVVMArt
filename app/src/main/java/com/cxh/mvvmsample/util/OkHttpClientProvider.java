@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * 自定义OkHttp客户端
+ * 自定义 OkHttp 客户端
  * Created by Hai (haigod7@gmail.com) on 2017/3/13 14:21.
  */
 public class OkHttpClientProvider {

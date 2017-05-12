@@ -11,7 +11,6 @@ import com.squareup.leakcanary.LeakCanary;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 
-
 /**
  *
  * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.

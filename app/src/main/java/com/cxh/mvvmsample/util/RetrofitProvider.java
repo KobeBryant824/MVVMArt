@@ -9,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 import static com.cxh.mvvmsample.AppConstants.BASEURL;
 
 /**
- * Retrofit构造器
+ * Retrofit 构造器
  * Created by Hai (haigod7@gmail.com) on 2017/3/8 14:07.
  */
 public class RetrofitProvider {

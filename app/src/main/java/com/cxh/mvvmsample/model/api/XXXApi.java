@@ -4,7 +4,7 @@ import io.reactivex.Flowable;
 import retrofit2.http.POST;
 
 /**
- * 包含请求地址和实体，参照contract设计思想：“一站式服务”
+ * 包含请求地址和实体，参照 contract 设计思想：“一站式服务”
  * Created by Hai (haigod7@gmail.com) on 2017/3/7 17:19.
  */
 public interface XXXApi {

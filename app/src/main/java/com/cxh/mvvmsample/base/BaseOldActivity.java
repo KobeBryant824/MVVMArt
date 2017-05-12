@@ -8,25 +8,20 @@ import android.view.View;
 
 import com.cxh.mvvmsample.manager.ActivityManager;
 import com.cxh.mvvmsample.manager.RxDisposable;
-import com.cxh.mvvmsample.model.api.entity.Event;
+import com.cxh.mvvmsample.model.api.entity.event.PageStateEvent;
 import com.hss01248.pagestate.PageManager;
+import com.socks.library.KLog;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static android.R.attr.tag;
-import static com.cxh.mvvmsample.AppConstants.ON_FAILED;
-import static com.cxh.mvvmsample.AppConstants.ON_SUCCESS;
+import static com.cxh.mvvmsample.model.api.entity.event.PageStateEvent.ON_FAILED;
+import static com.cxh.mvvmsample.model.api.entity.event.PageStateEvent.ON_SUCCESS;
 
 /**
- * BaseOldActivity 无适配，还是用dp
- * BaseAutoActivity 多分辨率适配，用px，全局通用这种，有坑就单个页面extexds BaseOldActivity
- */
-
-/**
- * 所有在activity中用到RxJava2都必须继承此BaseActivity（数据请求在M层，让P层去控制RxJava）
+ * 所有在 Activity 中用到 RxJava2 都必须继承此 BaseActivity
  * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
  */
 public abstract class BaseOldActivity extends RxAppCompatActivity {
@@ -37,7 +32,9 @@ public abstract class BaseOldActivity extends RxAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView();
         ActivityManager.getInstance().pushOneActivity(this);
-        EventBus.getDefault().register(this);
+
+        if (registerEventBus())
+            EventBus.getDefault().register(this);
 
         Bundle extras = getIntent().getExtras();
         if (null != extras) {
@@ -90,13 +87,15 @@ public abstract class BaseOldActivity extends RxAppCompatActivity {
         RxDisposable.clear();
         super.onDestroy();
         ActivityManager.getInstance().popOneActivity(this);
-        EventBus.getDefault().unregister(this);
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(String msg) {
-        switch (msg) {
+    public void onMainEvent(PageStateEvent event) {
+        switch (event.getTag()) {
             case ON_SUCCESS:
+                KLog.e(System.currentTimeMillis()); // 有几个BaseAutoActivity存活 消息就接几次
                 mPageStateManager.showContent();
                 break;
             case ON_FAILED:
@@ -105,14 +104,12 @@ public abstract class BaseOldActivity extends RxAppCompatActivity {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(Event event) {
-    }
-
     protected void getBundleExtras(Bundle extras) {
     }
 
     protected abstract void setContentView();
+
+    protected abstract boolean registerEventBus();
 
     protected abstract void RetryEvent();
 

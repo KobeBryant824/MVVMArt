@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 
 /**
- *  轻量级的开源缓存框架
+ * 轻量级的开源缓存框架
  * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
  */
 public class ACache {

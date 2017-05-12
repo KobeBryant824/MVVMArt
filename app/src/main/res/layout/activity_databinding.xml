@@ -184,13 +184,24 @@
                 android:text="Remove Item"/>
         </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            bind:adapter="@{viewModel.adapter}"
+            bind:itemBinding="@{viewModel.multipleItems}"
+            bind:items="@{viewModel.headerFooterItems}"
+            bind:layoutManager="@{LayoutManagers.linear()}"
+            bind:viewHolder="@{viewModel.viewHolder}"/>
+
         <!--android:refreshing 绑定 SwipeRefreshLayout 的 setRefreshing(）-->
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:refreshing="@{viewModel.viewStyle.isRefreshing}"
             bind:onRefreshCommand="@{viewModel.onRefreshCommand}">
 
+            <!-- bind:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}"-->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
@@ -200,17 +211,6 @@
                 bind:layoutManager="@{LayoutManagers.linear()}"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            bind:adapter="@{viewModel.adapter}"
-            bind:itemBinding="@{viewModel.multipleItems}"
-            bind:items="@{viewModel.headerFooterItems}"
-            bind:layoutManager="@{LayoutManagers.linear()}"
-            bind:viewHolder="@{viewModel.viewHolder}"/>
-
     </LinearLayout>
-
 
 </layout>

@@ -8,22 +8,23 @@ import com.cxh.mvvmsample.base.BaseAutoActivity;
 import com.cxh.mvvmsample.databinding.MyBinding;
 import com.cxh.mvvmsample.databinding.ViewStub1Binding;
 import com.cxh.mvvmsample.listener.OkListener;
-import com.cxh.mvvmsample.model.api.entity.Event;
 import com.cxh.mvvmsample.model.api.entity.User;
+import com.cxh.mvvmsample.model.api.entity.event.DataBindingViewModelEvent;
 import com.cxh.mvvmsample.util.ToastUtils;
 import com.cxh.mvvmsample.view.widget.DividerItemDecoration;
 import com.cxh.mvvmsample.viewmodel.DataBindingViewModel;
 
-import static com.cxh.mvvmsample.AppConstants.DATABINDINGVIEWMODEL_LISTENER;
-import static com.cxh.mvvmsample.AppConstants.DATABINDINGVIEWMODEL_MREPLYCOMMAND;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
- * Desc, databinding一些简单使用
+ * Desc, DataBinding 一些简单使用
  * Created by Hai (haigod7@gmail.com) on 2017/4/28 13:58.
  */
 public class DataBindingActivity extends BaseAutoActivity implements OkListener {
 
     private MyBinding mBinding;
+    private User mUser;
 
     @Override
     protected void setContentView() {
@@ -33,20 +34,24 @@ public class DataBindingActivity extends BaseAutoActivity implements OkListener 
     }
 
     @Override
+    protected boolean registerEventBus() {
+        return true;
+    }
+
+    @Override
     protected void RetryEvent() {
 
     }
 
     @Override
     protected void initViewsAndEvents() {
-        User user = new User("Kobe", "Bryant", 37);
-        mBinding.setUser(user);
+
         mBinding.setOkText("hello点我");
         mBinding.setListener(this);
 
         mBinding.viewStub.setOnInflateListener((stub, inflated) -> {
             ViewStub1Binding binding = DataBindingUtil.bind(inflated);
-            binding.setUser(user);
+            binding.setUser(mUser);
         });
     }
 
@@ -56,16 +61,21 @@ public class DataBindingActivity extends BaseAutoActivity implements OkListener 
         mBinding.setViewModel(new DataBindingViewModel());
     }
 
-    @Override
-    public void onMainEvent(Event event) {
-        super.onMainEvent(event);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainEvent(User user){
+        mUser = user;
+        mBinding.setUser(user);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMainEvent(DataBindingViewModelEvent event) {
         switch (event.getTag()){
-            case DATABINDINGVIEWMODEL_MREPLYCOMMAND:
-                ToastUtils.showToast(DataBindingActivity.this, event.getData().toString());
+            case DataBindingViewModelEvent.REPLY_COMMAND:
+                ToastUtils.showToast(DataBindingActivity.this, event.getData());
                 break;
 
-            case DATABINDINGVIEWMODEL_LISTENER:
-                ToastUtils.showToast(DataBindingActivity.this, event.getData().toString());
+            case DataBindingViewModelEvent.ONITEMCLICKLISTENER:
+                ToastUtils.showToast(DataBindingActivity.this, event.getData());
                 break;
         }
     }
