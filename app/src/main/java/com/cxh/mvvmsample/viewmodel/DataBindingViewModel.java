@@ -13,11 +13,8 @@ import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnItemClickListener;
 import com.cxh.mvvmsample.model.api.entity.User;
 import com.cxh.mvvmsample.model.api.entity.event.DataBindingViewModelEvent;
-import com.cxh.mvvmsample.model.api.entity.event.PageStateEvent;
 import com.cxh.mvvmsample.util.EventBusUtils;
-import com.cxh.mvvmsample.view.adapter.XXXRecyclerViewAdapter;
-
-import org.greenrobot.eventbus.EventBus;
+import com.cxh.mvvmsample.ui.adapter.XXXRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

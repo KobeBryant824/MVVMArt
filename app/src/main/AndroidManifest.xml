@@ -24,7 +24,7 @@
                 android:value="1280"/>
 
         <activity
-                android:name=".view.activity.MainActivity"
+                android:name=".ui.activity.MainActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -37,8 +37,8 @@
                     android:name="android.app.shortcuts"
                     android:resource="@xml/shortcuts"/>
         </activity>
-        <activity android:name=".view.activity.XXXActivity"/>
-        <activity android:name=".view.activity.DataBindingActivity"/>
+        <activity android:name=".ui.activity.XXXActivity"/>
+        <activity android:name=".ui.activity.DataBindingActivity"/>
     </application>
 
 </manifest>

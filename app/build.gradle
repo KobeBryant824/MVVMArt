@@ -32,7 +32,6 @@ android {
         enabled true
     }
 
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -45,17 +44,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     testCompile 'junit:junit:4.12'
-    compile project(':pagestatemanager')
-    compile project(':autolayout')
-    compile project(':autolayoutwidget')
-
-    compile libs.support_v4
-    compile libs.appcompat_v7
     compile libs.recyclerview_v7
 
-    //运行时权限检查
-    compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+    // 屏幕自适配
+    compile project(':autolayoutwidget')
+    compile 'com.github.hss01248:PageStateManager:1.0.3'
 
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
@@ -79,12 +72,20 @@ dependencies {
     compile 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
-    //内存泄漏检测工具
+    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.0.1'
+    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.0.1'
+
+    // 运行时权限检查
+    compile 'com.github.hotchemi:permissionsdispatcher:2.3.1'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'
+
+    // 防止用RxJava2时内存泄漏
+    compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.0.1'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.0.1'
+
+    // 内存泄漏检测工具
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 
-
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.0.1'
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.0.1'
 }
