@@ -128,14 +128,13 @@ public abstract class BaseActivity extends RxAppCompatActivity{
         }
     }
 
-    protected void getBundleExtras(Bundle extras) {
-    }
-
-    protected abstract void setContentView();
-
     public boolean useEventBus() {
         return true;
     }
+
+    protected void getBundleExtras(Bundle extras) {}
+
+    protected abstract void setContentView();
 
     protected abstract void RetryEvent();
 

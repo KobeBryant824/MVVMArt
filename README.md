@@ -14,7 +14,8 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 
 
 ## Libraries
-- [PermissionsDispatcher](https://github.com/hotchemi/PermissionsDispatcher)
+- [PageStateManager](https://github.com/hss01248/PageStateManager)
+- [AndroidAutoLayout](https://github.com/hongyangAndroid/AndroidAutoLayout)
 - [KLog](https://github.com/ZhaoKaiQiang/KLog)
 - [FastJson](https://github.com/alibaba/fastjson)
 - [EventBus](https://github.com/greenrobot/EventBus)
@@ -24,8 +25,8 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 - [RxJava2](https://github.com/ReactiveX/RxJava)
 - [Retrofit](https://github.com/square/retrofit)
 - [Leakcanary](https://github.com/square/leakcanary)
-- [AndroidAutoLayout](https://github.com/hongyangAndroid/AndroidAutoLayout)
-- [PageStateManager](https://github.com/hss01248/PageStateManager)
+- [PermissionsDispatcher](https://github.com/hotchemi/PermissionsDispatcher)
+- [binding-collection-adapter](https://github.com/evant/binding-collection-adapter)
 
 
 ## Thanks

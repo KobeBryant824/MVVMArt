@@ -4,10 +4,13 @@ import android.app.Application;
 import android.text.format.DateFormat;
 
 import com.cxh.mvvmsample.util.FileUtils;
+import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.socks.library.KLog;
 import com.squareup.leakcanary.LeakCanary;
 
+import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 
@@ -31,7 +34,16 @@ public class MApplication extends Application implements Thread.UncaughtExceptio
 
         super.onCreate();
 
-        Fresco.initialize(this);
+        DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(this)
+                .setBaseDirectoryPath(new File(getExternalCacheDir(), "fresco"))
+                .setBaseDirectoryName("fresco_sample")
+                .setMaxCacheSize(100 * 1024 * 1024)//100MB
+                .build();
+
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setMainDiskCacheConfig(mainDiskCacheConfig)
+                .build();
+        Fresco.initialize(this , config);
 
         KLog.init(BuildConfig.DEBUG, getString(R.string.app_name));
 

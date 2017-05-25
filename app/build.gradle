@@ -22,8 +22,9 @@ android {
     }
 
     buildTypes {
+        // Fresco的体积可能有点庞大，所以我们强烈推荐你在发布App时进行混淆(Proguard)。
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,6 +36,16 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    splits {
+        //如果你的应用不支持 Android 2.3 (Gingerbread)，你可以不需要 armeabi 类的ABI.
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
+            universalApk false
+        }
     }
 }
 
@@ -53,8 +64,13 @@ dependencies {
     compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
     compile 'com.alibaba:fastjson:1.1.56.android'
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.facebook.fresco:fresco:1.3.0'
     compile 'com.github.jdsjlzx:LRecyclerView:1.4.3'
+
+    compile 'com.facebook.fresco:fresco:1.3.0' // 底层是httpurlconnection
+    compile "com.facebook.fresco:imagepipeline-okhttp3:1.3.0" // 添加这一个项变成使用okhttp3
+    compile 'com.facebook.fresco:animated-gif:1.3.0'
+    compile 'com.facebook.fresco:animated-webp:1.3.0'
+    compile 'com.facebook.fresco:webpsupport:1.3.0'
 
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
