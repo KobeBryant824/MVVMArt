@@ -24,7 +24,14 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# 忽略警告
+-ignorewarnings
+-dontwarn
 
+# 不混淆实体类
+-keep class com.cxh.mvpsample.model.api.**{*;}
+
+# Fresco混淆
 # Keep our interfaces so they can be used by other ProGuard rules.
 # See http://sourceforge.net/p/proguard/bugs/466/
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
@@ -40,9 +47,33 @@
     native <methods>;
 }
 
--dontwarn okio.**
--dontwarn com.squareup.okhttp.**
--dontwarn okhttp3.**
--dontwarn javax.annotation.**
--dontwarn com.android.volley.toolbox.**
--dontwarn com.facebook.infer.**
+# EventBus混淆
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+# LeakCanary混淆
+-keep class com.squareup.haha.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+
+-keep class android.support.v4.**{*;}
+-keep class android.support.v7.**{*;}
+-keep class android.support.design.**{*;}
+
+-keep class com.zhy.autolayout.widget.**{*;}
+-keep class com.zhy.autolayout.**{*;}
+-keep class com.hss01248.pagestate.**{*;}
+
+-keep class com.socks.**{*;}
+-keep class com.alibaba.fastjson.**{*;}
+-keep class com.github.**{*;}
+
+-keep class retrofit2.converter.fastjson.**{*;}
+-keep class me.tatarka.bindingcollectionadapter2.**{*;}
