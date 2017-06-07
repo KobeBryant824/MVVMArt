@@ -18,13 +18,13 @@ import java.lang.reflect.Field;
  *
  * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
  */
-public class MApplication extends Application implements Thread.UncaughtExceptionHandler {
+public class App extends Application implements Thread.UncaughtExceptionHandler {
     /**
      * 全局Context，原理是因为Application类是应用最先运行的，所以在我们的代码调用时，该值已经被赋值过了
      */
-    private static MApplication mAppContext;
+    private static App mAppContext;
 
-    public static MApplication getContext() {
+    public static App getContext() {
         return mAppContext;
     }
 

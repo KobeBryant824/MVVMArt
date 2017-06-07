@@ -10,7 +10,7 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 
 ## 弊端 ##
 - 数据绑定使得 Bug 很难被调试，错误位置难定位
-- 数据双向绑定不利于代码重用。客户端开发最常用的重用是 View，但是数据双向绑定技术，让你在一个 View 都绑定了一个 Model，不同模块的        Model 都不同，那就不能简单重用 View 了。 
+- 数据双向绑定不利于代码重用。客户端开发最常用的重用是 View，但是数据双向绑定技术，让你在一个 View 都绑定了一个 Model，不同模块的 Model 都不同，那就不能简单重用 View 了。 
 
 
 ## Libraries
@@ -21,18 +21,33 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 - [EventBus](https://github.com/greenrobot/EventBus)
 - [Fresco](https://github.com/facebook/fresco)
 - [LRecyclerView](https://github.com/jdsjlzx/LRecyclerView)
-- [RxBinding](https://github.com/JakeWharton/RxBinding)
 - [RxJava2](https://github.com/ReactiveX/RxJava)
 - [Retrofit](https://github.com/square/retrofit)
+- [RxBinding](https://github.com/JakeWharton/RxBinding)
+- [binding-collection-adapter](https://github.com/evant/binding-collection-adapter)
 - [Leakcanary](https://github.com/square/leakcanary)
 - [PermissionsDispatcher](https://github.com/hotchemi/PermissionsDispatcher)
-- [binding-collection-adapter](https://github.com/evant/binding-collection-adapter)
 
 
 ## Thanks
-- [Data Binding Library | Android Developers](https://developer.android.com/topic/libraries/data-binding/index.html) 需要翻墙
+- [Data Binding Library](https://developer.android.com/topic/libraries/data-binding/index.html)
 - [Data Binding 中文翻译](http://www.jianshu.com/p/b1df61a4df77)
 - [如何构建 Android MVVM 应用框架](http://tech.meituan.com/android_mvvm.html)
 
-## License
-   Apache-2.0
+
+### 开源许可 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+```
+Copyright 2017 XinHai Chen
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
