@@ -21,6 +21,7 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 - [EventBus](https://github.com/greenrobot/EventBus)
 - [Fresco](https://github.com/facebook/fresco)
 - [LRecyclerView](https://github.com/jdsjlzx/LRecyclerView)
+- [Dagger2](https://github.com/google/dagger)
 - [RxJava2](https://github.com/ReactiveX/RxJava)
 - [Retrofit](https://github.com/square/retrofit)
 - [RxBinding](https://github.com/JakeWharton/RxBinding)

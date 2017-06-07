@@ -69,11 +69,11 @@ public class DataBindingViewModel implements BaseViewModel {
     }
 
     public DataBindingViewModel() {
-        getDataFromModel();
+        loadData();
     }
 
     @Override
-    public void getDataFromModel() {
+    public void loadData() {
         for (int i = 0; i < 3; i++) {
             items0.add(new User("Kobe" + i, "Bryant"));
         }
@@ -81,13 +81,13 @@ public class DataBindingViewModel implements BaseViewModel {
         User user = new User("Kobe", "Bryant", 37);
         EventBusUtils.post(user);
 
-        loadData();
+        requestData();
     }
 
     /**
      * 假设从 Model 获取到的数据
      */
-    private void loadData() {
+    private void requestData() {
         viewStyle.isRefreshing.set(true);
         items.clear();
         // 模拟网络请求

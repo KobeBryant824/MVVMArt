@@ -74,11 +74,13 @@ public abstract class BaseActivity extends RxAppCompatActivity{
 
     @Override
     protected void onDestroy() {
-        RxDisposable.clear();
         super.onDestroy();
-        ActivityManager.getInstance().popOneActivity(this);
+        RxDisposable.clear();
+
         if (EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().unregister(this);
+
+        ActivityManager.getInstance().popOneActivity(this);
     }
 
     protected void pushPageThenKill(Class<?> clazz) {

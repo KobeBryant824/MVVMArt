@@ -19,20 +19,18 @@ import java.lang.reflect.Field;
  * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
  */
 public class App extends Application implements Thread.UncaughtExceptionHandler {
-    /**
-     * 全局Context，原理是因为Application类是应用最先运行的，所以在我们的代码调用时，该值已经被赋值过了
-     */
-    private static App mAppContext;
 
-    public static App getContext() {
-        return mAppContext;
+    private static App mInstance;
+    private static AppComponent mAppComponent;
+
+    public static App getInstance() {
+        return mInstance;
     }
 
     @Override
     public void onCreate() {
-        mAppContext = this;
-
         super.onCreate();
+        mInstance = this;
 
         DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(this)
                 .setBaseDirectoryPath(new File(getExternalCacheDir(), "fresco"))
@@ -46,6 +44,8 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         Fresco.initialize(this , config);
 
         KLog.init(BuildConfig.DEBUG, getString(R.string.app_name));
+
+        mAppComponent = DaggerAppComponent.builder().appModuel(new AppModuel(this)).build();
 
         if (LeakCanary.isInAnalyzerProcess(this)) {
             // This process is dedicated to LeakCanary for heap analysis.
@@ -62,10 +62,16 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
 
     }
 
+    public static AppComponent getAppComponent() {
+        return mAppComponent;
+    }
+
     /**
      * 当应用崩溃的时候，捕获异常
      * 1、该用应程序，在此处，必死无异，不能原地复活，只能，留个遗言，即，记录一下，崩溃的log日志，以便开发人员处理
      * 2、将自己彻底杀死，早死早超生。
+     * @param thread
+     * @param ex
      */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {

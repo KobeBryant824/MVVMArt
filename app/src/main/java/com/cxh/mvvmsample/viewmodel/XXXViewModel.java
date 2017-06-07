@@ -8,8 +8,10 @@ import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnRequestListener;
 import com.cxh.mvvmsample.model.api.XXXApi;
 import com.cxh.mvvmsample.model.api.entity.event.XXXViewModelEvent;
-import com.cxh.mvvmsample.model.repository.XXXDataRepository;
+import com.cxh.mvvmsample.model.repository.XXXRepository;
 import com.cxh.mvvmsample.util.EventBusUtils;
+
+import javax.inject.Inject;
 
 import io.reactivex.functions.Action;
 
@@ -19,19 +21,25 @@ import io.reactivex.functions.Action;
  */
 public class XXXViewModel implements BaseViewModel {
 
+    private final XXXRepository mXXXRepository;
+
     public final ObservableField<String> mPath = new ObservableField<>();
     public final ObservableField<XXXApi.WelcomeEntity> mWelcomeEntity = new ObservableField<>();
+
     private static int index = 0;
     private String mData;
 
+    @Inject
     public XXXViewModel() {
-        getDataFromModel();
+        mXXXRepository = new XXXRepository();
+        loadData();
     }
 
     @Override
-    public void getDataFromModel() {
+    public void loadData() {
         // 请求 M 层数据
-        new XXXDataRepository().requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
+        mXXXRepository.requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
+
             @Override
             public void onSuccess(XXXApi.WelcomeEntity welcomeEntity) {
                 EventBusUtils.postSuccessEvent();
@@ -60,6 +68,7 @@ public class XXXViewModel implements BaseViewModel {
     }
 
     public final ReplyCommand mReplyCommand = new ReplyCommand(new Action() {
+
         @Override
         public void run() throws Exception {
             EventBusUtils.post(new XXXViewModelEvent(mData));
