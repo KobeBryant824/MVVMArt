@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * RecyclerView.Adapter
- * Created by Hai (haigod7@gmail.com) on 2017/4/6 16:34.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder> {
     protected Context mContext;

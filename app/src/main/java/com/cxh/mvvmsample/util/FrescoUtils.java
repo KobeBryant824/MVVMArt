@@ -17,8 +17,8 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 /**
- * Desc: Fresco图片加载
- * Created by Hai (haigod7@gmail.com) on 2017/5/25 9:35.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class FrescoUtils {
 

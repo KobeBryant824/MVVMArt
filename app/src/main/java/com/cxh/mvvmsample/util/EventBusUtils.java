@@ -5,8 +5,8 @@ import com.cxh.mvvmsample.model.api.entity.event.PageStateEvent;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Desc:
- * Created by Hai (haigod7@gmail.com) on 2017/5/12 15:35.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class EventBusUtils {
 

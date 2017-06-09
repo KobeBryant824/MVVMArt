@@ -4,7 +4,8 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by kelin on 15-8-4.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class ReplyCommand<T> {
 

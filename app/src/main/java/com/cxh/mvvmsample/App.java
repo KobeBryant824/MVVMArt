@@ -14,9 +14,13 @@ import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 
+import retrofit2.Retrofit;
+
+import static com.socks.library.KLog.a;
+
 /**
- *
- * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class App extends Application implements Thread.UncaughtExceptionHandler {
 
@@ -45,14 +49,7 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
 
         KLog.init(BuildConfig.DEBUG, getString(R.string.app_name));
 
-        mAppComponent = DaggerAppComponent.builder().appModuel(new AppModuel(this)).build();
-
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
 
         /**
          * 给当前线程，设置一个，全局异常捕获
@@ -60,10 +57,20 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
          */
 //		Thread.currentThread().setUncaughtExceptionHandler(this);
 
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     public static AppComponent getAppComponent() {
         return mAppComponent;
+    }
+
+    public static Retrofit getRetrofit(){
+        return mAppComponent.getRetrofit();
     }
 
     /**

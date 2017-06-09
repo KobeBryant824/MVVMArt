@@ -14,9 +14,11 @@ import android.view.animation.TranslateAnimation;
 
 import com.cxh.mvvmsample.R;
 
+
 /**
  * 带有清除的 EditText
- * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener, TextWatcher {
     /**

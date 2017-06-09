@@ -1,8 +1,8 @@
 package com.cxh.mvvmsample;
 
 /**
- * 常量
- * Created by Hai (haigod7@gmail.com) on 2017/3/14 10:02.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class Constants {
 

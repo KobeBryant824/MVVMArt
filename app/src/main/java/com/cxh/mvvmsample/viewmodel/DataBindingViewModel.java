@@ -12,7 +12,7 @@ import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnItemClickListener;
 import com.cxh.mvvmsample.model.api.entity.User;
-import com.cxh.mvvmsample.model.api.entity.event.DataBindingViewModelEvent;
+import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
 import com.cxh.mvvmsample.util.EventBusUtils;
 import com.cxh.mvvmsample.ui.adapter.XXXRecyclerViewAdapter;
 
@@ -29,17 +29,18 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList;
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass;
 
-import static com.cxh.mvvmsample.model.api.entity.event.DataBindingViewModelEvent.ONITEMCLICKLISTENER;
-import static com.cxh.mvvmsample.model.api.entity.event.DataBindingViewModelEvent.REPLY_COMMAND;
+import static com.cxh.mvvmsample.model.api.entity.event.DBVMEvent.ONITEMCLICKLISTENER;
+import static com.cxh.mvvmsample.model.api.entity.event.DBVMEvent.REPLY_COMMAND;
 
 /**
- * Desc:
- * Created by Hai (haigod7@gmail.com) on 2017/5/11 15:01.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class DataBindingViewModel implements BaseViewModel {
+
     private boolean first = true;
 
-    private OnItemClickListener listener = msg -> EventBusUtils.post(new DataBindingViewModelEvent(ONITEMCLICKLISTENER, msg));
+    private OnItemClickListener listener = msg -> EventBusUtils.post(new DBVMEvent(ONITEMCLICKLISTENER, msg));
 
     // 单一item
     public final ItemBinding<User> itemBinding = ItemBinding.<User>of(BR.item, R.layout.list_item).bindExtra(BR.listener, listener);
@@ -84,9 +85,6 @@ public class DataBindingViewModel implements BaseViewModel {
         requestData();
     }
 
-    /**
-     * 假设从 Model 获取到的数据
-     */
     private void requestData() {
         viewStyle.isRefreshing.set(true);
         items.clear();
@@ -138,7 +136,7 @@ public class DataBindingViewModel implements BaseViewModel {
         }
     }
 
-    public final ReplyCommand mReplyCommand = new ReplyCommand(() -> EventBusUtils.post(new DataBindingViewModelEvent(REPLY_COMMAND, "ReplyCommand")));
+    public final ReplyCommand mReplyCommand = new ReplyCommand(() -> EventBusUtils.post(new DBVMEvent(REPLY_COMMAND, "ReplyCommand")));
 
     public final ReplyCommand onRefreshCommand = new ReplyCommand(DataBindingViewModel.this::loadData);
 

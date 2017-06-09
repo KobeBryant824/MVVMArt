@@ -6,8 +6,12 @@ import android.databinding.Bindable;
 
 import com.cxh.mvvmsample.BR;
 
-
+/**
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
+ */
 public class User extends BaseObservable {
+
     private String firstName;
     private String lastName;
     private String displayName;

@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
- * BaseFragment
- * Created by Hai (haigod7@gmail.com) on 2017/3/16 11:23.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public abstract class BaseFragment extends RxFragment {
 

@@ -7,17 +7,18 @@ import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnRequestListener;
 import com.cxh.mvvmsample.model.api.XXXApi;
-import com.cxh.mvvmsample.model.api.entity.event.XXXViewModelEvent;
+import com.cxh.mvvmsample.model.api.entity.event.XXXVMEvent;
 import com.cxh.mvvmsample.model.repository.XXXRepository;
 import com.cxh.mvvmsample.util.EventBusUtils;
+import com.socks.library.KLog;
 
 import javax.inject.Inject;
 
 import io.reactivex.functions.Action;
 
 /**
- * 数据处理中心，不处理 UI，不持有 Activity
- * Created by Hai (haigod7@gmail.com) on 2017/4/26 15:28.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class XXXViewModel implements BaseViewModel {
 
@@ -37,7 +38,6 @@ public class XXXViewModel implements BaseViewModel {
 
     @Override
     public void loadData() {
-        // 请求 M 层数据
         mXXXRepository.requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
 
             @Override
@@ -49,7 +49,6 @@ public class XXXViewModel implements BaseViewModel {
                 if (index % 2 == 0) {
                     mWelcomeEntity.set(welcomeEntity);
 
-                    // 报错：Crash: trying to use a recycled bitmap ，大图用fresco加载要进行剪裁，
                     mPath.set("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-02-926821_1453024764952889_775781470_n.jpg"); // 假设这个URL是从服务器获取的
 
                 } else {
@@ -71,7 +70,7 @@ public class XXXViewModel implements BaseViewModel {
 
         @Override
         public void run() throws Exception {
-            EventBusUtils.post(new XXXViewModelEvent(mData));
+            EventBusUtils.post(new XXXVMEvent(mData));
         }
     });
 }

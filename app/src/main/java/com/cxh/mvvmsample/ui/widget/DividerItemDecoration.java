@@ -9,10 +9,12 @@ import android.view.View;
 import com.cxh.mvvmsample.R;
 
 /**
- * Desc:
- * Created by Hai (haigod7@gmail.com) on 2017/5/11 16:32.
+ * 带有清除的 EditText
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+
     private Drawable mDivider;
 
     public DividerItemDecoration(Context context) {

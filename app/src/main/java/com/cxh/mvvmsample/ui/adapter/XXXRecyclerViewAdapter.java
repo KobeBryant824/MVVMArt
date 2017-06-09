@@ -8,8 +8,12 @@ import android.view.ViewGroup;
 
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 
-
+/**
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
+ */
 public class XXXRecyclerViewAdapter<T> extends BindingRecyclerViewAdapter<T> {
+
     public static final String TAG = "RecyclerView";
 
     @Override

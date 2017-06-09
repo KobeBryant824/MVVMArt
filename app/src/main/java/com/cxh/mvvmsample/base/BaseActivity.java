@@ -26,8 +26,8 @@ import static com.cxh.mvvmsample.model.api.entity.event.PageStateEvent.ON_FAILED
 import static com.cxh.mvvmsample.model.api.entity.event.PageStateEvent.ON_SUCCESS;
 
 /**
- * 屏幕自适配可能会有很多坑
- * Created by Hai (haigod7@gmail.com) on 2017/3/6 10:51.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public abstract class BaseActivity extends RxAppCompatActivity{
     private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
@@ -121,7 +121,6 @@ public abstract class BaseActivity extends RxAppCompatActivity{
     public void onMainEvent(PageStateEvent event) {
         switch (event.getTag()) {
             case ON_SUCCESS:
-                KLog.e(System.currentTimeMillis()); // 有几个BaseAutoActivity存活 消息就接几次
                 mPageStateManager.showContent();
                 break;
             case ON_FAILED:

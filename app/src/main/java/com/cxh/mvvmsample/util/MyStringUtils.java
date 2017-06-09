@@ -3,7 +3,10 @@ package com.cxh.mvvmsample.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
+ */
 public class MyStringUtils {
     private static Pattern sWordPattern = Pattern.compile("\\w+");
 

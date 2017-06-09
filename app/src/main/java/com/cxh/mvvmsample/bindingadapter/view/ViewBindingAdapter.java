@@ -7,7 +7,8 @@ import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 
 
 /**
- * Created by kelin on 16-3-24.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public final class ViewBindingAdapter {
 

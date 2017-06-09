@@ -24,7 +24,10 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.socks.library.KLog;
 
-
+/**
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
+ */
 public final class ViewBindingAdapter {
 
     /**

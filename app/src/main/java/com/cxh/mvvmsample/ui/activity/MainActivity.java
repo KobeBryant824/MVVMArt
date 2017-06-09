@@ -28,7 +28,10 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 import permissions.dispatcher.RuntimePermissions;
 
-
+/**
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
+ */
 @RuntimePermissions
 public class MainActivity extends BaseActivity {
 
@@ -47,10 +50,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViewsAndEvents() {
 
-        // 替代Handler，加入RxLifecycle 解决内存泄漏隐患
         Observable.timer(2, TimeUnit.SECONDS)
                 .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
-                // Replace or Expand lambda , alt + enter
                 .subscribe(aLong -> mPageStateManager.showContent());
 
         RxView.clicks(mMainBinding.mvpBtn)
@@ -71,7 +72,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void requestPermission() {
-        // M 才需要申请权限 ， leakcanary 在M以上需要权限
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             MainActivityPermissionsDispatcher.agreeWithCheck(this);
         }
@@ -83,7 +83,6 @@ public class MainActivity extends BaseActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
 
-    // 双击返回键退出
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -102,7 +101,7 @@ public class MainActivity extends BaseActivity {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void agree() {
-        ToastUtils.showToast(this, "写SD卡限权已申请");
+        ToastUtils.show("写SD卡限权已申请");
     }
 
     @Override
@@ -125,7 +124,7 @@ public class MainActivity extends BaseActivity {
 
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void permissionDenied() {
-        ToastUtils.showToast(this, "权限被拒绝");
+        ToastUtils.show("权限被拒绝");
     }
 
     @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)

@@ -9,7 +9,7 @@ import com.cxh.mvvmsample.databinding.MyBinding;
 import com.cxh.mvvmsample.databinding.ViewStub1Binding;
 import com.cxh.mvvmsample.listener.OkListener;
 import com.cxh.mvvmsample.model.api.entity.User;
-import com.cxh.mvvmsample.model.api.entity.event.DataBindingViewModelEvent;
+import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
 import com.cxh.mvvmsample.util.ToastUtils;
 import com.cxh.mvvmsample.ui.widget.DividerItemDecoration;
 import com.cxh.mvvmsample.viewmodel.DataBindingViewModel;
@@ -18,8 +18,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 /**
- * Desc, DataBinding 一些简单使用
- * Created by Hai (haigod7@gmail.com) on 2017/4/28 13:58.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
 public class DataBindingActivity extends BaseActivity implements OkListener {
 
@@ -63,21 +63,21 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(DataBindingViewModelEvent event) {
+    public void onMainEvent(DBVMEvent event) {
         switch (event.getTag()){
-            case DataBindingViewModelEvent.REPLY_COMMAND:
-                ToastUtils.showToast(DataBindingActivity.this, event.getData());
+            case DBVMEvent.REPLY_COMMAND:
+                ToastUtils.show(event.getData());
                 break;
 
-            case DataBindingViewModelEvent.ONITEMCLICKLISTENER:
-                ToastUtils.showToast(DataBindingActivity.this, event.getData());
+            case DBVMEvent.ONITEMCLICKLISTENER:
+                ToastUtils.show(event.getData());
                 break;
         }
     }
 
     @Override
     public void onClickOk(View view) {
-        ToastUtils.showToast(this, "OkListener");
+        ToastUtils.show("OkListener");
     }
 
     public void inflateViewStub(View view) {

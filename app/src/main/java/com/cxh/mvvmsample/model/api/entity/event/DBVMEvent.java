@@ -1,14 +1,15 @@
 package com.cxh.mvvmsample.model.api.entity.event;
 
 /**
- * Desc:
- * Created by Hai (haigod7@gmail.com) on 2017/5/12 15:47.
+ * @author Hai (haigod7[at]gmail[dot]com)
+ *         2017/3/6
  */
-public class DataBindingViewModelEvent extends Event<String>{
+public class DBVMEvent extends Event<String>{
+
     public static final String REPLY_COMMAND = "ReplyCommand";
     public static final String ONITEMCLICKLISTENER = "OnItemClickListener";
 
-    public DataBindingViewModelEvent(String tag, String data) {
+    public DBVMEvent(String tag, String data) {
         super(tag, data);
     }
 }
