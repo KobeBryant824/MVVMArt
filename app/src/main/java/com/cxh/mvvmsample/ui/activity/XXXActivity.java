@@ -6,7 +6,6 @@ import com.cxh.mvvmsample.R;
 import com.cxh.mvvmsample.base.BaseActivity;
 import com.cxh.mvvmsample.databinding.ActivityXxxBinding;
 import com.cxh.mvvmsample.model.api.entity.event.XXXVMEvent;
-import com.cxh.mvvmsample.ui.activity.component.DaggerXXXComponent;
 import com.cxh.mvvmsample.util.ToastUtils;
 import com.cxh.mvvmsample.viewmodel.XXXViewModel;
 
@@ -30,18 +29,24 @@ public class XXXActivity extends BaseActivity {
     }
 
     @Override
+    protected void initDagger() {
+        mActivityComponent.inject(this);
+    }
+
+    @Override
     protected void RetryEvent() {
+
     }
 
     @Override
     protected void initViewsAndEvents() {
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        DaggerXXXComponent.builder().build().inject(this); // rebuild
-        mBinding.setViewModel(mXXXViewModel);
+        mBinding.setViewModel(new XXXViewModel(this));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

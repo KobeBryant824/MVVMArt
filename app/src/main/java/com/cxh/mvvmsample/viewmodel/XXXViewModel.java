@@ -1,5 +1,6 @@
 package com.cxh.mvvmsample.viewmodel;
 
+import android.app.Activity;
 import android.databinding.ObservableField;
 
 import com.alibaba.fastjson.JSON;
@@ -9,8 +10,8 @@ import com.cxh.mvvmsample.listener.OnRequestListener;
 import com.cxh.mvvmsample.model.api.XXXApi;
 import com.cxh.mvvmsample.model.api.entity.event.XXXVMEvent;
 import com.cxh.mvvmsample.model.repository.XXXRepository;
+import com.cxh.mvvmsample.ui.activity.XXXActivity;
 import com.cxh.mvvmsample.util.EventBusUtils;
-import com.socks.library.KLog;
 
 import javax.inject.Inject;
 
@@ -22,16 +23,17 @@ import io.reactivex.functions.Action;
  */
 public class XXXViewModel implements BaseViewModel {
 
-    private final XXXRepository mXXXRepository;
-
     public final ObservableField<String> mPath = new ObservableField<>();
     public final ObservableField<XXXApi.WelcomeEntity> mWelcomeEntity = new ObservableField<>();
 
-    private static int index = 0;
+    private static int sIndex = 0;
     private String mData;
+    private final XXXRepository mXXXRepository;
+    private XXXActivity mXXXActivity;
 
     @Inject
-    public XXXViewModel() {
+    public XXXViewModel(Activity activity) {
+        mXXXActivity = (XXXActivity) activity;
         mXXXRepository = new XXXRepository();
         loadData();
     }
@@ -42,13 +44,12 @@ public class XXXViewModel implements BaseViewModel {
 
             @Override
             public void onSuccess(XXXApi.WelcomeEntity welcomeEntity) {
-                EventBusUtils.postSuccessEvent();
+                mXXXActivity.showContent();
 
-                mData = welcomeEntity.getData().toString();
-                index++;
-                if (index % 2 == 0) {
+                mData = welcomeEntity.toString();
+                sIndex++;
+                if (sIndex % 2 == 0) {
                     mWelcomeEntity.set(welcomeEntity);
-
                     mPath.set("http://7xi8d6.com1.z0.glb.clouddn.com/2017-05-02-926821_1453024764952889_775781470_n.jpg"); // 假设这个URL是从服务器获取的
 
                 } else {
@@ -61,7 +62,7 @@ public class XXXViewModel implements BaseViewModel {
 
             @Override
             public void onFailed() {
-                EventBusUtils.postFailedEvent();
+                mXXXActivity.showError();
             }
         });
     }

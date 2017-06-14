@@ -1,5 +1,6 @@
 package com.cxh.mvvmsample.viewmodel;
 
+import android.app.Activity;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
@@ -11,19 +12,21 @@ import com.cxh.mvvmsample.R;
 import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.listener.OnItemClickListener;
+import com.cxh.mvvmsample.manager.RxScheduler;
 import com.cxh.mvvmsample.model.api.entity.User;
 import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
-import com.cxh.mvvmsample.util.EventBusUtils;
+import com.cxh.mvvmsample.ui.activity.DataBindingActivity;
 import com.cxh.mvvmsample.ui.adapter.XXXRecyclerViewAdapter;
+import com.cxh.mvvmsample.util.EventBusUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList;
@@ -69,7 +72,11 @@ public class DataBindingViewModel implements BaseViewModel {
         public final ObservableBoolean isRefreshing = new ObservableBoolean(true);
     }
 
-    public DataBindingViewModel() {
+    private DataBindingActivity mDataBindingActivity;
+
+    @Inject
+    public DataBindingViewModel(Activity activity) {
+        mDataBindingActivity = (DataBindingActivity) activity;
         loadData();
     }
 
@@ -98,14 +105,13 @@ public class DataBindingViewModel implements BaseViewModel {
                     emitter.onNext(userList);
                 })
                 .delay(2, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxScheduler.schedulersObservableTransformer())
                 .subscribe(list -> {
                     items.addAll(list);
                     viewStyle.isRefreshing.set(false);
                     if (first) {
                         first = false;
-                        EventBusUtils.postSuccessEvent();
+                        mDataBindingActivity.showContent();
                     }
                 });
 
@@ -121,8 +127,7 @@ public class DataBindingViewModel implements BaseViewModel {
                     emitter.onNext(userList);
                 })
                 .delay(2, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxScheduler.schedulersObservableTransformer())
                 .subscribe(items::addAll);
     }
 

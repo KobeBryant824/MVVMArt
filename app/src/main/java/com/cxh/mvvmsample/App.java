@@ -3,6 +3,9 @@ package com.cxh.mvvmsample;
 import android.app.Application;
 import android.text.format.DateFormat;
 
+import com.cxh.mvvmsample.di.component.AppComponent;
+import com.cxh.mvvmsample.di.component.DaggerAppComponent;
+import com.cxh.mvvmsample.di.moduel.AppModule;
 import com.cxh.mvvmsample.util.FileUtils;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -15,8 +18,6 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 
 import retrofit2.Retrofit;
-
-import static com.socks.library.KLog.a;
 
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
@@ -51,17 +52,8 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
 
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
 
-        /**
-         * 给当前线程，设置一个，全局异常捕获
-         * 说明：线程中，没有try catch的地方，抛了异常，都由该方法捕获，上线请打开
-         */
-//		Thread.currentThread().setUncaughtExceptionHandler(this);
+//		Thread.currentThread().setUncaughtExceptionHandler(this); // 上线打开
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
         LeakCanary.install(this);
     }
 
@@ -73,13 +65,6 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         return mAppComponent.getRetrofit();
     }
 
-    /**
-     * 当应用崩溃的时候，捕获异常
-     * 1、该用应程序，在此处，必死无异，不能原地复活，只能，留个遗言，即，记录一下，崩溃的log日志，以便开发人员处理
-     * 2、将自己彻底杀死，早死早超生。
-     * @param thread
-     * @param ex
-     */
     @Override
     public void uncaughtException(Thread thread, Throwable ex) {
 
@@ -101,7 +86,6 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
             e.printStackTrace();
         }
 
-        // 2、将自己彻底杀死
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 }

@@ -1,7 +1,6 @@
 package com.cxh.mvvmsample.ui.activity;
 
 import android.Manifest;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -43,6 +42,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void initDagger() {
+
+    }
+
+    @Override
     public void RetryEvent() {
 
     }
@@ -51,18 +55,15 @@ public class MainActivity extends BaseActivity {
     protected void initViewsAndEvents() {
 
         Observable.timer(2, TimeUnit.SECONDS)
-                .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(aLong -> mPageStateManager.showContent());
 
         RxView.clicks(mMainBinding.mvpBtn)
                 .throttleFirst(2000, TimeUnit.MICROSECONDS)
-                .subscribe(o -> {
-                    startActivity(new Intent(MainActivity.this, XXXActivity.class));
-                });
+                .subscribe(o -> pushPage(XXXActivity.class));
 
         Observable.interval(1, TimeUnit.SECONDS)
                 .doOnDispose(() -> KLog.e("Unsubscribing subscription from onCreate()"))
-                .compose(this.<Long>bindUntilEvent(ActivityEvent.PAUSE))
+                .compose(bindUntilEvent(ActivityEvent.PAUSE))
                 .subscribe(num -> KLog.e("Started in onCreate(), running until onPause(): " + num));
 
     }
@@ -78,25 +79,25 @@ public class MainActivity extends BaseActivity {
     }
 
     public void dataBinding(View view) {
-        startActivity(new Intent(this, DataBindingActivity.class));
+        pushPage(DataBindingActivity.class);
     }
 
-    private boolean doubleBackToExitPressedOnce = false;
+    private boolean mDoubleBackToExitPressedOnce = false;
 
     @Override
     public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
+        if (mDoubleBackToExitPressedOnce) {
             super.onBackPressed();
             ActivityManager.getInstance().appExit();
             return;
         }
 
-        this.doubleBackToExitPressedOnce = true;
+        mDoubleBackToExitPressedOnce = true;
         Toast.makeText(this, "再次点击退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
 
         Observable.timer(2, TimeUnit.SECONDS)
-                .compose(this.<Long>bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(aLong -> doubleBackToExitPressedOnce = false);
+                .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(aLong -> mDoubleBackToExitPressedOnce = false);
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -129,6 +130,6 @@ public class MainActivity extends BaseActivity {
 
     @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void neverAskAgain() {
-        Toast.makeText(this, "下次需要该权限请到系统设置中打开", Toast.LENGTH_SHORT).show();
+        ToastUtils.show("下次需要该权限请到系统设置中打开");
     }
 }

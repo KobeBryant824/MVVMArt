@@ -17,6 +17,8 @@ import com.cxh.mvvmsample.viewmodel.DataBindingViewModel;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import javax.inject.Inject;
+
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
  *         2017/3/6
@@ -25,12 +27,19 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
 
     private MyBinding mBinding;
     private User mUser;
+    @Inject
+    DataBindingViewModel mDataBindingViewModel;
 
     @Override
     protected void setContentView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_databinding);
 //        mBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this, VERTICAL));
         mBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this));
+    }
+
+    @Override
+    protected void initDagger() {
+        mActivityComponent.inject(this);
     }
 
     @Override
@@ -53,7 +62,7 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.setViewModel(new DataBindingViewModel());
+        mBinding.setViewModel(mDataBindingViewModel);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
