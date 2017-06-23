@@ -27,9 +27,13 @@
 # 忽略警告
 -ignorewarnings
 -dontwarn
+-dontwarn java.lang.invoke.*
+-dontwarn **$$Lambda$*
 
 # 不混淆实体类
 -keep class com.cxh.mvpsample.model.api.**{*;}
+#自定义控件不参与混淆
+-keep class com.cxh.mvpsample.ui.widget.** { *; }
 
 # Fresco混淆
 # Keep our interfaces so they can be used by other ProGuard rules.

@@ -13,7 +13,7 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 - 数据双向绑定不利于代码重用。客户端开发最常用的重用是 View，但是数据双向绑定技术，让你在一个 View 都绑定了一个 Model，不同模块的 Model 都不同，那就不能简单重用 View 了。 
 
 
-## Libraries
+## Libs
 - [PageStateManager](https://github.com/hss01248/PageStateManager)
 - [AndroidAutoLayout](https://github.com/hongyangAndroid/AndroidAutoLayout)
 - [KLog](https://github.com/ZhaoKaiQiang/KLog)
@@ -36,7 +36,7 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 - [如何构建 Android MVVM 应用框架](http://tech.meituan.com/android_mvvm.html)
 
 
-### 开源许可 [![Hex.pm](https://img.shields.io/hexpm/l/plug.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+## License
 ```
 Copyright 2017 XinHai Chen
 
