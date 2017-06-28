@@ -3,10 +3,6 @@ package com.cxh.mvvmsample.di.moduel;
 import android.app.Activity;
 import android.content.Context;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 import com.cxh.mvvmsample.di.qualifier.ContextLife;
 import com.cxh.mvvmsample.di.scope.ActivityScoped;
 
