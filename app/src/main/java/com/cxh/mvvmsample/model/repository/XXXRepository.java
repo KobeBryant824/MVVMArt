@@ -1,17 +1,15 @@
 package com.cxh.mvvmsample.model.repository;
 
-import android.util.Log;
-
 import com.cxh.mvvmsample.App;
 import com.cxh.mvvmsample.listener.OnRequestListener;
-import com.cxh.mvvmsample.manager.RxDisposable;
 import com.cxh.mvvmsample.manager.RxScheduler;
 import com.cxh.mvvmsample.model.api.XXXApi;
+import com.socks.library.KLog;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
-import io.reactivex.disposables.Disposable;
 
 
 /**
@@ -20,21 +18,20 @@ import io.reactivex.disposables.Disposable;
  */
 public class XXXRepository implements IRequestBiz<XXXApi.WelcomeEntity> {
 
-    public void requestData(final OnRequestListener<XXXApi.WelcomeEntity> listener) {
+    public void requestData(RxAppCompatActivity activity, final OnRequestListener<XXXApi.WelcomeEntity> listener) {
 
-        XXXApi xxxApi =  App.getRetrofit().create(XXXApi.class);
+        XXXApi xxxApi = App.getRetrofit().create(XXXApi.class);
 
-        Disposable subscribe = xxxApi.getWelcomeEntity()
-                .compose(RxScheduler.schedulersFlowableTransformer())
-                .subscribe(listener::onSuccess, throwable -> listener.onFailed(), () -> {});
+        xxxApi.getWelcomeEntity()
+                .compose(activity.bindToLifecycle())
+                .compose(RxScheduler.schedulersObservableTransformer(activity))
+                .subscribe(listener::onSuccess, throwable -> listener.onFailed());
 
-        Disposable subscribe1 = Flowable.interval(1, TimeUnit.SECONDS)
-                .doOnCancel(() -> Log.d("hh", "Unsubscribing subscription from onCreate()"))
-                .subscribe(aLong -> Log.d("hh", "Started in onCreate(), running until onDestroy(): " + aLong));
+        Flowable.interval(1, TimeUnit.SECONDS)
+                .doOnCancel(() -> KLog.e("Unsubscribing subscription from onCreate()"))
+                .compose(RxScheduler.schedulersFlowableTransformer(activity))
+                .subscribe(aLong -> KLog.e("Started in onCreate(), running until onDestroy(): " + aLong));
 
-        RxDisposable.add(subscribe);
-
-        RxDisposable.add(subscribe1);
 
     }
 

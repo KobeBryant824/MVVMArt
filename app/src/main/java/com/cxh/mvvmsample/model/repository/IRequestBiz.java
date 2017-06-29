@@ -2,6 +2,7 @@ package com.cxh.mvvmsample.model.repository;
 
 
 import com.cxh.mvvmsample.listener.OnRequestListener;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
@@ -9,5 +10,6 @@ import com.cxh.mvvmsample.listener.OnRequestListener;
  */
 public interface IRequestBiz<T>{
 
-    void requestData(OnRequestListener<T> listener);
+    void requestData(RxAppCompatActivity activity, OnRequestListener<T> listener);
+
 }

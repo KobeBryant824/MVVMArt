@@ -13,7 +13,6 @@ import com.cxh.mvvmsample.di.component.ActivityComponent;
 import com.cxh.mvvmsample.di.component.DaggerActivityComponent;
 import com.cxh.mvvmsample.di.moduel.ActivityModule;
 import com.cxh.mvvmsample.manager.ActivityManager;
-import com.cxh.mvvmsample.manager.RxDisposable;
 import com.cxh.mvvmsample.model.api.entity.event.Event;
 import com.hss01248.pagestate.PageManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -84,8 +83,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxDisposable.clear();
-
         if (useEventBus()) EventBus.getDefault().unregister(this);
 
         ActivityManager.getInstance().popOneActivity(this);

@@ -46,7 +46,7 @@ public class XXXActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.setViewModel(new XXXViewModel(this));
+        mBinding.setViewModel(mXXXViewModel);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

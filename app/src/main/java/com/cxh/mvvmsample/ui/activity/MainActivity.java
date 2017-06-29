@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(this, "再次点击退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
 
         Observable.timer(2, TimeUnit.SECONDS)
-                .compose(bindUntilEvent(ActivityEvent.DESTROY))
+                .compose(bindToLifecycle())
                 .subscribe(aLong -> mDoubleBackToExitPressedOnce = false);
     }
 

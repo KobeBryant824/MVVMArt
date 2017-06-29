@@ -32,7 +32,7 @@ public class XXXViewModel implements BaseViewModel {
     private XXXActivity mXXXActivity;
 
     @Inject
-    public XXXViewModel(Activity activity) {
+    XXXViewModel(Activity activity) {
         mXXXActivity = (XXXActivity) activity;
         mXXXRepository = new XXXRepository();
         loadData();
@@ -40,7 +40,7 @@ public class XXXViewModel implements BaseViewModel {
 
     @Override
     public void loadData() {
-        mXXXRepository.requestData(new OnRequestListener<XXXApi.WelcomeEntity>() {
+        mXXXRepository.requestData(mXXXActivity, new OnRequestListener<XXXApi.WelcomeEntity>() {
 
             @Override
             public void onSuccess(XXXApi.WelcomeEntity welcomeEntity) {

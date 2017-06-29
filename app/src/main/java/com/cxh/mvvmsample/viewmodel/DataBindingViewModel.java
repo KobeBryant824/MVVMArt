@@ -105,7 +105,7 @@ public class DataBindingViewModel implements BaseViewModel {
                     emitter.onNext(userList);
                 })
                 .delay(2, TimeUnit.SECONDS)
-                .compose(RxScheduler.schedulersObservableTransformer())
+                .compose(RxScheduler.schedulersObservableTransformer(mDataBindingActivity))
                 .subscribe(list -> {
                     items.addAll(list);
                     viewStyle.isRefreshing.set(false);
@@ -127,7 +127,7 @@ public class DataBindingViewModel implements BaseViewModel {
                     emitter.onNext(userList);
                 })
                 .delay(2, TimeUnit.SECONDS)
-                .compose(RxScheduler.schedulersObservableTransformer())
+                .compose(RxScheduler.schedulersObservableTransformer(mDataBindingActivity))
                 .subscribe(items::addAll);
     }
 
