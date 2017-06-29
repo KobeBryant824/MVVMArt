@@ -7,11 +7,11 @@ import retrofit2.http.POST;
  * @author Hai (haigod7[at]gmail[dot]com)
  *         2017/3/6
  */
-public interface XXXApi {
+public interface UserApi {
 
     // BUG  服务器都用request来解析参数
     @POST("version/detail")
-    Observable<WelcomeEntity> getWelcomeEntity();
+    Observable<WelcomeEntity> welcomeObservable();
 
     public class WelcomeEntity {
         private int code;

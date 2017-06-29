@@ -9,7 +9,7 @@ import com.cxh.mvvmsample.di.qualifier.ContextLife;
 import com.cxh.mvvmsample.di.scope.ActivityScoped;
 import com.cxh.mvvmsample.ui.activity.DataBindingActivity;
 import com.cxh.mvvmsample.ui.activity.MainActivity;
-import com.cxh.mvvmsample.ui.activity.XXXActivity;
+import com.cxh.mvvmsample.ui.activity.UserActivity;
 
 import dagger.Component;
 
@@ -28,7 +28,7 @@ public interface ActivityComponent {
 
     void inject(MainActivity activity);
 
-    void inject(XXXActivity activity);
+    void inject(UserActivity activity);
 
     void inject(DataBindingActivity activity);
 

@@ -7,7 +7,7 @@ import com.cxh.mvvmsample.R;
 import com.cxh.mvvmsample.base.BaseActivity;
 import com.cxh.mvvmsample.databinding.MyBinding;
 import com.cxh.mvvmsample.databinding.ViewStub1Binding;
-import com.cxh.mvvmsample.listener.OkListener;
+import com.cxh.mvvmsample.callback.OkListener;
 import com.cxh.mvvmsample.model.api.entity.User;
 import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
 import com.cxh.mvvmsample.util.ToastUtils;

@@ -1,4 +1,4 @@
-package com.cxh.mvvmsample.listener;
+package com.cxh.mvvmsample.callback;
 
 /**
  * @author Hai (haigod7[at]gmail[dot]com)

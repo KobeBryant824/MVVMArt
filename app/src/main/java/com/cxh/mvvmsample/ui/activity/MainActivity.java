@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity {
 
         RxView.clicks(mMainBinding.mvpBtn)
                 .throttleFirst(2000, TimeUnit.MICROSECONDS)
-                .subscribe(o -> pushPage(XXXActivity.class));
+                .subscribe(o -> pushPage(UserActivity.class));
 
         Observable.interval(1, TimeUnit.SECONDS)
                 .doOnDispose(() -> KLog.e("Unsubscribing subscription from onCreate()"))
@@ -74,7 +74,6 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(this, "再次点击退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
 
         Observable.timer(2, TimeUnit.SECONDS)
-                .compose(bindToLifecycle())
                 .subscribe(aLong -> mDoubleBackToExitPressedOnce = false);
     }
 

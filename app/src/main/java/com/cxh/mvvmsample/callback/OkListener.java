@@ -1,4 +1,4 @@
-package com.cxh.mvvmsample.listener;
+package com.cxh.mvvmsample.callback;
 
 import android.view.View;
 

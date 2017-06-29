@@ -9,7 +9,7 @@
 
         <variable
             name="listener"
-            type="com.cxh.mvvmsample.listener.OnItemClickListener"/>
+            type="com.cxh.mvvmsample.callback.OnItemClickListener"/>
 
     </data>
 

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.cxh.mvvmsample.viewmodel.XXXViewModel"/>
+            type="com.cxh.mvvmsample.viewmodel.UserViewModel"/>
 
     </data>
 

@@ -11,7 +11,7 @@ import com.cxh.mvvmsample.BR;
 import com.cxh.mvvmsample.R;
 import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
-import com.cxh.mvvmsample.listener.OnItemClickListener;
+import com.cxh.mvvmsample.callback.OnItemClickListener;
 import com.cxh.mvvmsample.manager.RxScheduler;
 import com.cxh.mvvmsample.model.api.entity.User;
 import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
