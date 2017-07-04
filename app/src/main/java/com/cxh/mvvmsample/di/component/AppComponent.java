@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.cxh.mvvmsample.di.moduel.AppModule;
 import com.cxh.mvvmsample.di.qualifier.ContextLife;
+import com.cxh.mvvmsample.model.repository.Repository;
 
 import javax.inject.Singleton;
 
@@ -26,5 +27,7 @@ public interface AppComponent {
     Retrofit getRetrofit();
 
     OkHttpClient getOkHttpClient();
+
+    Repository getRepository();
 
 }

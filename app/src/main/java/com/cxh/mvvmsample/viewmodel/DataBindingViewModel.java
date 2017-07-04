@@ -13,11 +13,12 @@ import com.cxh.mvvmsample.base.BaseViewModel;
 import com.cxh.mvvmsample.bindingadapter.ReplyCommand;
 import com.cxh.mvvmsample.callback.OnItemClickListener;
 import com.cxh.mvvmsample.manager.RxScheduler;
-import com.cxh.mvvmsample.model.api.entity.User;
-import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
+import com.cxh.mvvmsample.model.entity.User;
 import com.cxh.mvvmsample.ui.activity.DataBindingActivity;
 import com.cxh.mvvmsample.ui.adapter.XXXRecyclerViewAdapter;
-import com.cxh.mvvmsample.util.EventBusUtils;
+import com.cxh.mvvmsample.util.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,6 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.collections.MergeObservableList;
 import me.tatarka.bindingcollectionadapter2.itembindings.OnItemBindClass;
 
-import static com.cxh.mvvmsample.model.api.entity.event.DBVMEvent.ONITEMCLICKLISTENER;
-import static com.cxh.mvvmsample.model.api.entity.event.DBVMEvent.REPLY_COMMAND;
-
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
  *         2017/3/6
@@ -43,7 +41,7 @@ public class DataBindingViewModel implements BaseViewModel {
 
     private boolean first = true;
 
-    private OnItemClickListener listener = msg -> EventBusUtils.post(new DBVMEvent(ONITEMCLICKLISTENER, msg));
+    private OnItemClickListener listener = ToastUtils::show;
 
     // 单一item
     public final ItemBinding<User> itemBinding = ItemBinding.<User>of(BR.item, R.layout.list_item).bindExtra(BR.listener, listener);
@@ -75,7 +73,7 @@ public class DataBindingViewModel implements BaseViewModel {
     private DataBindingActivity mDataBindingActivity;
 
     @Inject
-    public DataBindingViewModel(Activity activity) {
+    DataBindingViewModel(Activity activity) {
         mDataBindingActivity = (DataBindingActivity) activity;
         loadData();
     }
@@ -85,9 +83,8 @@ public class DataBindingViewModel implements BaseViewModel {
         for (int i = 0; i < 3; i++) {
             items0.add(new User("Kobe" + i, "Bryant"));
         }
-
         User user = new User("Kobe", "Bryant", 37);
-        EventBusUtils.post(user);
+        EventBus.getDefault().post(user);
 
         requestData();
     }
@@ -95,7 +92,6 @@ public class DataBindingViewModel implements BaseViewModel {
     private void requestData() {
         viewStyle.isRefreshing.set(true);
         items.clear();
-        // 模拟网络请求
         Observable
                 .create((ObservableOnSubscribe<List<User>>) emitter -> {
                     List<User> userList = new ArrayList<>();
@@ -117,7 +113,7 @@ public class DataBindingViewModel implements BaseViewModel {
 
     }
 
-    private void loadMoreData(){
+    private void loadMoreData() {
         Observable
                 .create((ObservableOnSubscribe<List<User>>) emitter -> {
                     List<User> userList = new ArrayList<>();
@@ -141,7 +137,7 @@ public class DataBindingViewModel implements BaseViewModel {
         }
     }
 
-    public final ReplyCommand mReplyCommand = new ReplyCommand(() -> EventBusUtils.post(new DBVMEvent(REPLY_COMMAND, "ReplyCommand")));
+    public final ReplyCommand mReplyCommand = new ReplyCommand(() -> ToastUtils.show("ReplyCommand"));
 
     public final ReplyCommand onRefreshCommand = new ReplyCommand(DataBindingViewModel.this::loadData);
 

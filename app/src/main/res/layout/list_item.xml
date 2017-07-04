@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.cxh.mvvmsample.model.api.entity.User"/>
+            type="com.cxh.mvvmsample.model.entity.User"/>
 
         <variable
             name="listener"

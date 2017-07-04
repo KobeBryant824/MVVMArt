@@ -5,12 +5,7 @@ import android.databinding.DataBindingUtil;
 import com.cxh.mvvmsample.R;
 import com.cxh.mvvmsample.base.BaseActivity;
 import com.cxh.mvvmsample.databinding.ActivityUserBinding;
-import com.cxh.mvvmsample.model.api.entity.event.XXXVMEvent;
-import com.cxh.mvvmsample.util.ToastUtils;
 import com.cxh.mvvmsample.viewmodel.UserViewModel;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -40,7 +35,7 @@ public class UserActivity extends BaseActivity {
     }
 
     @Override
-    protected void initViewsAndEvents() {
+    protected void initDataAndEvent() {
 
     }
 
@@ -50,8 +45,5 @@ public class UserActivity extends BaseActivity {
         mBinding.setViewModel(mUserViewModel);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(XXXVMEvent event) {
-        ToastUtils.show("click a replyCommand: " + event.getTag());
-    }
+
 }

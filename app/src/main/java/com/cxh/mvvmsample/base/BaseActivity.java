@@ -13,7 +13,6 @@ import com.cxh.mvvmsample.di.component.ActivityComponent;
 import com.cxh.mvvmsample.di.component.DaggerActivityComponent;
 import com.cxh.mvvmsample.di.moduel.ActivityModule;
 import com.cxh.mvvmsample.manager.ActivityManager;
-import com.cxh.mvvmsample.model.api.entity.event.Event;
 import com.hss01248.pagestate.PageManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zhy.autolayout.AutoFrameLayout;
@@ -21,8 +20,6 @@ import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
@@ -55,14 +52,13 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mActivityComponent = DaggerActivityComponent.builder().appComponent(App.getAppComponent()).activityModule(new ActivityModule(this)).build();
         initDagger();
 
-        initViewsAndEvents();
+        initDataAndEvent();
     }
 
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
         View view = null;
         // 其他用得少请自行引用autolayoutwidget库
-
         if (name.equals(LAYOUT_FRAMELAYOUT)) view = new AutoFrameLayout(context, attrs);
 
         if (name.equals(LAYOUT_LINEARLAYOUT)) view = new AutoLinearLayout(context, attrs);
@@ -83,9 +79,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (useEventBus()) EventBus.getDefault().unregister(this);
-
         ActivityManager.getInstance().popOneActivity(this);
+        if (useEventBus()) EventBus.getDefault().unregister(this);
     }
 
     protected void pushPage(Class<?> clazz) {
@@ -127,23 +122,16 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         if (!TextUtils.isEmpty(msg)) Snackbar.make(v, msg, Snackbar.LENGTH_SHORT).show();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void MainEvent(Event event) {
-    }
-
-    public boolean useEventBus() {
-        return true;
-    }
-
-    protected void getBundleExtras(Bundle extras) {
-    }
-
     protected abstract void setContentView();
+
+    protected boolean useEventBus() { return false;}
+
+    protected void getBundleExtras(Bundle extras) {}
 
     protected abstract void initDagger();
 
     protected abstract void RetryEvent();
 
-    protected abstract void initViewsAndEvents();
+    protected abstract void initDataAndEvent();
 
 }

@@ -8,12 +8,12 @@ import com.cxh.mvvmsample.base.BaseActivity;
 import com.cxh.mvvmsample.databinding.MyBinding;
 import com.cxh.mvvmsample.databinding.ViewStub1Binding;
 import com.cxh.mvvmsample.callback.OkListener;
-import com.cxh.mvvmsample.model.api.entity.User;
-import com.cxh.mvvmsample.model.api.entity.event.DBVMEvent;
+import com.cxh.mvvmsample.model.entity.User;
 import com.cxh.mvvmsample.util.ToastUtils;
 import com.cxh.mvvmsample.ui.widget.DividerItemDecoration;
 import com.cxh.mvvmsample.viewmodel.DataBindingViewModel;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -38,6 +38,11 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
     }
 
     @Override
+    protected boolean useEventBus() {
+        return true;
+    }
+
+    @Override
     protected void initDagger() {
         mActivityComponent.inject(this);
     }
@@ -48,8 +53,7 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
     }
 
     @Override
-    protected void initViewsAndEvents() {
-
+    protected void initDataAndEvent() {
         mBinding.setOkText("hello点我");
         mBinding.setListener(this);
 
@@ -65,23 +69,10 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
         mBinding.setViewModel(mDataBindingViewModel);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe()
     public void onMainEvent(User user){
         mUser = user;
         mBinding.setUser(user);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMainEvent(DBVMEvent event) {
-        switch (event.getTag()){
-            case DBVMEvent.REPLY_COMMAND:
-                ToastUtils.show(event.getData());
-                break;
-
-            case DBVMEvent.ONITEMCLICKLISTENER:
-                ToastUtils.show(event.getData());
-                break;
-        }
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.text.format.DateFormat;
 import com.cxh.mvvmsample.di.component.AppComponent;
 import com.cxh.mvvmsample.di.component.DaggerAppComponent;
 import com.cxh.mvvmsample.di.moduel.AppModule;
+import com.cxh.mvvmsample.model.repository.Repository;
 import com.cxh.mvvmsample.util.FileUtils;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -13,11 +14,11 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.socks.library.KLog;
 import com.squareup.leakcanary.LeakCanary;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
-
-import retrofit2.Retrofit;
 
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
@@ -50,6 +51,10 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
 
         KLog.init(BuildConfig.DEBUG, getString(R.string.app_name));
 
+        EventBus.builder()
+                .throwSubscriberException(BuildConfig.DEBUG)//只有在debug模式下，会抛出错误异常
+                .installDefaultEventBus();
+        
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
 
 //		Thread.currentThread().setUncaughtExceptionHandler(this); // 上线打开
@@ -61,8 +66,8 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         return mAppComponent;
     }
 
-    public static Retrofit getRetrofit(){
-        return mAppComponent.getRetrofit();
+    public static Repository getRepository(){
+        return mAppComponent.getRepository();
     }
 
     @Override

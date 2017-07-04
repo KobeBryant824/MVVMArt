@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initViewsAndEvents() {
+    protected void initDataAndEvent() {
 
         Observable.timer(2, TimeUnit.SECONDS)
                 .subscribe(aLong -> mPageStateManager.showContent());
