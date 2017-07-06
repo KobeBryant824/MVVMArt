@@ -5,7 +5,7 @@ import android.content.Context;
 
 import com.cxh.mvvmsample.di.moduel.AppModule;
 import com.cxh.mvvmsample.di.qualifier.ContextLife;
-import com.cxh.mvvmsample.model.repository.Repository;
+import com.cxh.mvvmsample.model.repository.RxCacheClient;
 
 import javax.inject.Singleton;
 
@@ -28,6 +28,6 @@ public interface AppComponent {
 
     OkHttpClient getOkHttpClient();
 
-    Repository getRepository();
+    RxCacheClient getRxCacheClient();
 
 }

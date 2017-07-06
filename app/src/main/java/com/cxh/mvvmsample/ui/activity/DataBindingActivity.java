@@ -53,7 +53,7 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
     }
 
     @Override
-    protected void initDataAndEvent() {
+    protected void initViewsAndEvents() {
         mBinding.setOkText("hello点我");
         mBinding.setListener(this);
 

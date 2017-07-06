@@ -6,7 +6,7 @@ import android.text.format.DateFormat;
 import com.cxh.mvvmsample.di.component.AppComponent;
 import com.cxh.mvvmsample.di.component.DaggerAppComponent;
 import com.cxh.mvvmsample.di.moduel.AppModule;
-import com.cxh.mvvmsample.model.repository.Repository;
+import com.cxh.mvvmsample.model.repository.RxCacheClient;
 import com.cxh.mvvmsample.util.FileUtils;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -66,8 +66,8 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         return mAppComponent;
     }
 
-    public static Repository getRepository(){
-        return mAppComponent.getRepository();
+    public static RxCacheClient getRxCacheClient(){
+        return mAppComponent.getRxCacheClient();
     }
 
     @Override

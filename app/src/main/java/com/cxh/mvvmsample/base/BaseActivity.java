@@ -52,7 +52,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         mActivityComponent = DaggerActivityComponent.builder().appComponent(App.getAppComponent()).activityModule(new ActivityModule(this)).build();
         initDagger();
 
-        initDataAndEvent();
+        initViewsAndEvents();
     }
 
     @Override
@@ -132,6 +132,6 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     protected abstract void RetryEvent();
 
-    protected abstract void initDataAndEvent();
+    protected abstract void initViewsAndEvents();
 
 }
