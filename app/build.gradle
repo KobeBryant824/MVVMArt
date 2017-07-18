@@ -6,7 +6,7 @@ android {
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        applicationId "com.cxh.mvvmsample"
+        applicationId "com.cxh.mvvmart"
 
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -60,7 +60,11 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile project(':autolayoutwidget')
+    compile rootProject.ext.dependencies["support-v4"]
+    compile rootProject.ext.dependencies["appcompat-v7"]
+    compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["cardview-v7"]
+    compile rootProject.ext.dependencies["design"]
 
     compile 'com.github.hss01248:PageStateManager:1.0.3'
 

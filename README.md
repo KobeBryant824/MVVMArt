@@ -15,7 +15,6 @@ MVVM 的目标和思想与 MVP 类似，利用数据绑定 (Data Binding)、依�
 
 
 ## Libs
-- [AndroidAutoLayout](https://github.com/hongyangAndroid/AndroidAutoLayout)
 - [PageStateManager](https://github.com/hss01248/PageStateManager)
 - [KLog](https://github.com/ZhaoKaiQiang/KLog)
 - [Gson](https://github.com/google/gson)

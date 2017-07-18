@@ -8,11 +8,11 @@
     <data class="MyBinding">
 
         <!--同个xml里有两个相同类名用alias重命名-->
-        <import type="com.cxh.mvvmsample.util.string.MyStringUtils"/>
+        <import type="com.cxh.mvvmart.util.string.MyStringUtils"/>
 
         <import
             alias="StringUtils"
-            type="com.cxh.mvvmsample.util.MyStringUtils"/>
+            type="com.cxh.mvvmart.util.MyStringUtils"/>
 
         <!--导入相关包-->
         <import type="android.view.View"/>
@@ -22,7 +22,7 @@
         <!--所有定义variable在java代码都要赋值，view才有数据-->
         <variable
             name="user"
-            type="com.cxh.mvvmsample.model.entity.User"/>
+            type="com.cxh.mvvmart.model.entity.User"/>
 
         <variable
             name="okText"
@@ -30,11 +30,11 @@
 
         <variable
             name="listener"
-            type="com.cxh.mvvmsample.callback.OkListener"/>
+            type="com.cxh.mvvmart.callback.OkListener"/>
 
         <variable
             name="viewModel"
-            type="com.cxh.mvvmsample.viewmodel.DataBindingViewModel"/>
+            type="com.cxh.mvvmart.viewmodel.DataBindingViewModel"/>
 
     </data>
 

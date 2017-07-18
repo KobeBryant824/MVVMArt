@@ -5,7 +5,7 @@
 
         <variable
             name="user"
-            type="com.cxh.mvvmsample.model.entity.User"/>
+            type="com.cxh.mvvmart.model.entity.User"/>
     </data>
 
     <LinearLayout

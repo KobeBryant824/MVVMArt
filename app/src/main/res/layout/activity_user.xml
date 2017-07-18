@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="com.cxh.mvvmsample.R"/>
+        <import type="com.cxh.mvvmart.R"/>
 
         <variable
             name="viewModel"
-            type="com.cxh.mvvmsample.viewmodel.UserViewModel"/>
+            type="com.cxh.mvvmart.viewmodel.UserViewModel"/>
 
     </data>
 
