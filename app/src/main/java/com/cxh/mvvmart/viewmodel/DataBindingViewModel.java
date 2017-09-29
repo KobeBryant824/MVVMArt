@@ -12,8 +12,8 @@ import com.cxh.mvvmart.R;
 import com.cxh.mvvmart.base.BaseViewModel;
 import com.cxh.mvvmart.bindingadapter.ReplyCommand;
 import com.cxh.mvvmart.callback.OnItemClickListener;
-import com.cxh.mvvmart.manager.RxScheduler;
-import com.cxh.mvvmart.model.entity.User;
+import com.cxh.mvvmart.model.User;
+import com.cxh.mvvmart.rx.RxScheduler;
 import com.cxh.mvvmart.ui.activity.DataBindingActivity;
 import com.cxh.mvvmart.ui.adapter.XXXRecyclerViewAdapter;
 import com.cxh.mvvmart.util.ToastUtils;
@@ -101,13 +101,12 @@ public class DataBindingViewModel implements BaseViewModel {
                     emitter.onNext(userList);
                 })
                 .delay(2, TimeUnit.SECONDS)
-                .compose(RxScheduler.applyObservableSchedulers(mDataBindingActivity))
+                .compose(RxScheduler.switchSchedulers(mDataBindingActivity))
                 .subscribe(list -> {
                     items.addAll(list);
                     viewStyle.isRefreshing.set(false);
                     if (first) {
                         first = false;
-                        mDataBindingActivity.showContent();
                     }
                 });
 
@@ -123,7 +122,7 @@ public class DataBindingViewModel implements BaseViewModel {
                     emitter.onNext(userList);
                 })
                 .delay(2, TimeUnit.SECONDS)
-                .compose(RxScheduler.applyObservableSchedulers(mDataBindingActivity))
+                .compose(RxScheduler.switchSchedulers(mDataBindingActivity))
                 .subscribe(items::addAll);
     }
 

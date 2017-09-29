@@ -1,4 +1,4 @@
-package com.cxh.mvvmart.model.entity;
+package com.cxh.mvvmart.model;
 
 
 import android.databinding.BaseObservable;

@@ -22,7 +22,7 @@
         <!--所有定义variable在java代码都要赋值，view才有数据-->
         <variable
             name="user"
-            type="com.cxh.mvvmart.model.entity.User"/>
+            type="com.cxh.mvvmart.model.User"/>
 
         <variable
             name="okText"
@@ -46,6 +46,8 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <include layout="@layout/toolbar"/>
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,6 +56,8 @@
             android:divider="@color/colorAccent">
 
             <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@android:color/darker_gray">
 
                 <TextView

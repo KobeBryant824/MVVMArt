@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/mvp_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="200dp"
-            android:text="mvvm"/>
+        <include layout="@layout/toolbar"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/mvp_btn"
-            android:layout_centerHorizontal="true"
-            android:onClick="dataBinding"
-            android:text="Databinding"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/mvp_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="200dp"
+                android:text="mvvm"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mvp_btn"
+                android:layout_centerHorizontal="true"
+                android:onClick="dataBinding"
+                android:text="Databinding"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
 </layout>

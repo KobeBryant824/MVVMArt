@@ -8,7 +8,7 @@ import com.cxh.mvvmart.base.BaseActivity;
 import com.cxh.mvvmart.databinding.MyBinding;
 import com.cxh.mvvmart.databinding.ViewStub1Binding;
 import com.cxh.mvvmart.callback.OkListener;
-import com.cxh.mvvmart.model.entity.User;
+import com.cxh.mvvmart.model.User;
 import com.cxh.mvvmart.util.ToastUtils;
 import com.cxh.mvvmart.ui.widget.DividerItemDecoration;
 import com.cxh.mvvmart.viewmodel.DataBindingViewModel;
@@ -29,25 +29,20 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
     DataBindingViewModel mDataBindingViewModel;
 
     @Override
-    protected void setContentView() {
+    protected void dataBindingView() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_databinding);
 //        mBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this, VERTICAL));
         mBinding.recyclerView.addItemDecoration(new DividerItemDecoration(this));
     }
 
     @Override
-    protected boolean useEventBus() {
+    protected boolean isUseEventBus() {
         return true;
     }
 
     @Override
-    protected void initDagger() {
+    protected void injectDagger() {
         mActivityComponent.inject(this);
-    }
-
-    @Override
-    protected void RetryEvent() {
-
     }
 
     @Override
@@ -59,6 +54,11 @@ public class DataBindingActivity extends BaseActivity implements OkListener {
             ViewStub1Binding binding = DataBindingUtil.bind(inflated);
             binding.setUser(mUser);
         });
+    }
+
+    @Override
+    protected void refreshState() {
+
     }
 
     @Override

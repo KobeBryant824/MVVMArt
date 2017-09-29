@@ -17,14 +17,16 @@
 
         <meta-data
             android:name="design_width"
-            android:value="720"/>
+            android:value="1920">
+        </meta-data>
+
         <meta-data
             android:name="design_height"
-            android:value="1280"/>
+            android:value="1080">
+        </meta-data>
 
         <activity
             android:name="com.cxh.mvvmart.ui.activity.MainActivity"
-            android:label="@string/label_main"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -35,11 +37,10 @@
 
         <activity
             android:name="com.cxh.mvvmart.ui.activity.UserActivity"
-            android:label="@string/label_user"
             android:screenOrientation="portrait"/>
+
         <activity
             android:name="com.cxh.mvvmart.ui.activity.DataBindingActivity"
-            android:label="@string/label_databinding"
             android:screenOrientation="portrait"/>
     </application>
 

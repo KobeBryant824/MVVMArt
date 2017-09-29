@@ -8,9 +8,6 @@ import com.cxh.mvvmart.R;
 import com.cxh.mvvmart.base.BaseActivity;
 import com.cxh.mvvmart.databinding.ActivityMainBinding;
 import com.cxh.mvvmart.manager.ActivityManager;
-import com.jakewharton.rxbinding2.view.RxView;
-import com.socks.library.KLog;
-import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,34 +22,29 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding mMainBinding;
 
     @Override
-    protected void setContentView() {
+    protected boolean displayHomeAsUpEnabled() {
+        return false;
+    }
+
+    @Override
+    protected void dataBindingView() {
         mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
     }
 
     @Override
-    protected void initDagger() {
-
-    }
-
-    @Override
-    public void RetryEvent() {
+    protected void injectDagger() {
 
     }
 
     @Override
     protected void initViewsAndEvents() {
+        toolbarTitle.setText(R.string.app_name);
+        mMainBinding.mvpBtn.setOnClickListener(view -> pushPage(UserActivity.class));
 
-        Observable.timer(2, TimeUnit.SECONDS)
-                .subscribe(aLong -> mPageStateManager.showContent());
+    }
 
-        RxView.clicks(mMainBinding.mvpBtn)
-                .throttleFirst(2000, TimeUnit.MICROSECONDS)
-                .subscribe(o -> pushPage(UserActivity.class));
-
-        Observable.interval(1, TimeUnit.SECONDS)
-                .doOnDispose(() -> KLog.e("Unsubscribing subscription from onCreate()"))
-                .compose(bindUntilEvent(ActivityEvent.PAUSE))
-                .subscribe(num -> KLog.e("Started in onCreate(), running until onPause(): " + num));
+    @Override
+    protected void refreshState() {
 
     }
 

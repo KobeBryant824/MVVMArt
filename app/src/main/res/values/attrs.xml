@@ -1,5 +1,9 @@
 <resources>
 
+    <declare-styleable name="AutoTabLayout">
+        <attr name="auto_textSize_base_width" format="boolean"/>
+    </declare-styleable>
+
     <!-- require boolean value to decide whether requestFocus for view. -->
     <attr name="requestFocus" format="boolean" />
     <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->

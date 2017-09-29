@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">MVVMArt</string>
-    <!--大图-->
-    <string name="path">http://wallpaper.macappstore.net/d/file/2016/12-07/c21d3a946915abc91342186369e90b42.jpg</string>
-
-    <!--Label-->
-    <string name="label_main">首页</string>
-    <string name="label_user">用户</string>
-    <string name="label_databinding">DataBinding</string>
 
     <string name="toast_hint">提示信息</string>
+    <string name="statelayout_loading">加载中..</string>
+
+    <string name="path">http://wallpaper.macappstore.net/d/file/2016/12-07/c21d3a946915abc91342186369e90b42.jpg</string>
+
+
+
 </resources>

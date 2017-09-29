@@ -2,10 +2,8 @@ package com.cxh.mvvmart.di.component;
 
 import android.content.Context;
 
-
 import com.cxh.mvvmart.di.moduel.AppModule;
 import com.cxh.mvvmart.di.qualifier.ContextLife;
-import com.cxh.mvvmart.model.repository.RxCacheClient;
 
 import javax.inject.Singleton;
 
@@ -27,7 +25,5 @@ public interface AppComponent {
     Retrofit getRetrofit();
 
     OkHttpClient getOkHttpClient();
-
-    RxCacheClient getRxCacheClient();
 
 }

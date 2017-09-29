@@ -12,59 +12,61 @@
 
     </data>
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/toolbar"/>
+
+        <com.fingdo.statelayout.StateLayout
+            android:id="@+id/stateLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(viewModel.mWelcomeEntity.get().getCode())}"/>
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.mWelcomeEntity.get().getMsg()}"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:text="@{viewModel.mStrarsStr.get()}"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.mWelcomeEntity.get().getData().toString()}"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:text="点我"
+                    bind:clickCommand="@{viewModel.mReplyCommand}"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:text="点我"
-                bind:clickCommand="@{viewModel.mReplyCommand}"/>
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:scaleType="fitXY"
+                    bind:path="@{viewModel.mPath.get()}"
+                    bind:placeholderImage="@drawable/meizi"/>
 
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
-                android:scaleType="fitXY"
-                bind:placeholderImage="@drawable/meizi"
-                bind:path="@{viewModel.mPath.get()}"/>
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                bind:placeholderImageRes="@{R.drawable.meizi}"
-                bind:request_height="@{200}"
-                bind:request_width="@{200}"
-                bind:uri="@{@string/path}"/>
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    bind:placeholderImageRes="@{R.drawable.meizi}"
+                    bind:request_height="@{200}"
+                    bind:request_width="@{200}"
+                    bind:uri="@{@string/path}"/>
 
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </ScrollView>
+        </com.fingdo.statelayout.StateLayout>
+    </LinearLayout>
 
 </layout>

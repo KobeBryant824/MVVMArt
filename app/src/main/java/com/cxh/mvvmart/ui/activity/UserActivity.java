@@ -15,23 +15,18 @@ import javax.inject.Inject;
  */
 public class UserActivity extends BaseActivity {
 
-    private ActivityUserBinding mBinding;
+    private ActivityUserBinding mActivityUserBinding;
     @Inject
     UserViewModel mUserViewModel;
 
     @Override
-    protected void setContentView() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_user);
+    protected void dataBindingView() {
+        mActivityUserBinding = DataBindingUtil.setContentView(this, R.layout.activity_user);
     }
 
     @Override
-    protected void initDagger() {
+    protected void injectDagger() {
         mActivityComponent.inject(this);
-    }
-
-    @Override
-    protected void RetryEvent() {
-
     }
 
     @Override
@@ -40,9 +35,14 @@ public class UserActivity extends BaseActivity {
     }
 
     @Override
+    protected void refreshState() {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        mBinding.setViewModel(mUserViewModel);
+        mActivityUserBinding.setViewModel(mUserViewModel);
     }
 
 
