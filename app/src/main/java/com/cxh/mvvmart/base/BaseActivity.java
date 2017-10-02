@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -11,11 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cxh.mvvmart.App;
 import com.cxh.mvvmart.R;
-import com.cxh.mvvmart.di.component.ActivityComponent;
-import com.cxh.mvvmart.di.component.DaggerActivityComponent;
-import com.cxh.mvvmart.di.moduel.ActivityModule;
 import com.cxh.mvvmart.manager.ActivityManager;
 import com.cxh.mvvmart.ui.widget.autolayout.AutoCardView;
 import com.cxh.mvvmart.ui.widget.autolayout.AutoRadioGroup;
@@ -32,11 +29,19 @@ import com.zhy.autolayout.AutoRelativeLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasFragmentInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
  *         2017/3/6
  */
-public abstract class BaseActivity extends RxAppCompatActivity implements StateLayout.OnViewRefreshListener {
+public abstract class BaseActivity extends RxAppCompatActivity implements StateLayout.OnViewRefreshListener, HasFragmentInjector, HasSupportFragmentInjector {
 
     private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
     private static final String LAYOUT_FRAMELAYOUT = "FrameLayout";
@@ -47,14 +52,29 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
     private static final String LAYOUT_TOOLBAR = "android.support.v7.widget.Toolbar";
     private static final String LAYOUT_TABLAYOUT = "android.support.design.widget.TabLayout";
 
-    protected ActivityComponent mActivityComponent;
-
     private StateLayout stateLayout;
     public Toolbar toolbar;
     public TextView toolbarTitle;
 
+    @Inject
+    DispatchingAndroidInjector<Fragment> supportFragmentInjector;
+    @Inject
+    DispatchingAndroidInjector<android.app.Fragment> frameworkFragmentInjector;
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return supportFragmentInjector;
+    }
+
+    @Override
+    public AndroidInjector<android.app.Fragment> fragmentInjector() {
+        return frameworkFragmentInjector;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (isInject())  AndroidInjection.inject(this);
+
         super.onCreate(savedInstanceState);
 
         dataBindingView();
@@ -67,12 +87,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
 
         Bundle extras = getIntent().getExtras();
         if (null != extras) getBundleExtras(extras);
-
-        mActivityComponent = DaggerActivityComponent.builder()
-                .appComponent(App.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-        injectDagger();
 
         setupStateLayout();
 
@@ -212,6 +226,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
     protected void getBundleExtras(Bundle extras) {
     }
 
+    protected boolean isInject() {
+        return true;
+    }
+
     protected boolean isUseDefaultToolbar() {
         return true;
     }
@@ -225,8 +243,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
     }
 
     protected abstract void dataBindingView();
-
-    protected abstract void injectDagger();
 
     protected abstract void initViewsAndEvents();
 

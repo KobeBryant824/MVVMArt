@@ -26,7 +26,7 @@
         </meta-data>
 
         <activity
-            android:name="com.cxh.mvvmart.ui.activity.MainActivity"
+            android:name="com.cxh.mvvmart.ui.home.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -36,12 +36,9 @@
         </activity>
 
         <activity
-            android:name="com.cxh.mvvmart.ui.activity.UserActivity"
+            android:name="com.cxh.mvvmart.ui.user.UserActivity"
             android:screenOrientation="portrait"/>
 
-        <activity
-            android:name="com.cxh.mvvmart.ui.activity.DataBindingActivity"
-            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

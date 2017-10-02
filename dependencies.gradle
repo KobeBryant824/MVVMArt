@@ -20,7 +20,6 @@ ext {
             "recyclerview-v7": "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
             "cardview-v7"    : "com.android.support:cardview-v7:${version["androidSupportSdkVersion"]}",
             "design"         : "com.android.support:design:${version["androidSupportSdkVersion"]}",
-
     ]
 
 

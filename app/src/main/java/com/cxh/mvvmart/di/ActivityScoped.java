@@ -1,4 +1,4 @@
-package com.cxh.mvvmart.di.scope;
+package com.cxh.mvvmart.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

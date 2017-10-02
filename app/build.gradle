@@ -23,7 +23,6 @@ android {
     }
 
     buildTypes {
-        // Fresco的体积可能有点庞大，所以我们强烈推荐你在发布App时进行混淆(Proguard)。
         release {
             shrinkResources true
             zipAlignEnabled true
@@ -41,22 +40,13 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    splits {
-        //如果你的应用不支持 Android 2.3 (Gingerbread)，你可以不需要 armeabi 类的ABI.
-        abi {
-            enable true
-            reset()
-            include 'x86', 'x86_64', 'arm64-v8a', 'armeabi-v7a'
-            universalApk false
-        }
-    }
-
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude module: 'jsr305'
     })
     testCompile 'junit:junit:4.12'
 
@@ -77,11 +67,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'org.greenrobot:eventbus-annotation-processor:3.0.1'
 
-    compile 'com.facebook.fresco:fresco:1.5.0'
-    compile "com.facebook.fresco:imagepipeline-okhttp3:1.5.0"
-    compile 'com.facebook.fresco:animated-gif:1.5.0'
-    compile 'com.facebook.fresco:animated-webp:1.5.0'
-    compile 'com.facebook.fresco:webpsupport:1.5.0'
+    compile 'com.github.bumptech.glide:glide:4.1.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
@@ -97,11 +84,10 @@ dependencies {
 
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
 
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:2.2.0'
-    compile 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:2.2.0'
-
-    compile 'com.google.dagger:dagger:2.11'
+    compile 'com.google.dagger:dagger-android:2.11'
+    compile 'com.google.dagger:dagger-android-support:2.11' // if you use the support libraries
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'

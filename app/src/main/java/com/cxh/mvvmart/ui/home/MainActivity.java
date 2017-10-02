@@ -1,13 +1,13 @@
-package com.cxh.mvvmart.ui.activity;
+package com.cxh.mvvmart.ui.home;
 
 import android.databinding.DataBindingUtil;
-import android.view.View;
-import android.widget.Toast;
 
 import com.cxh.mvvmart.R;
 import com.cxh.mvvmart.base.BaseActivity;
 import com.cxh.mvvmart.databinding.ActivityMainBinding;
 import com.cxh.mvvmart.manager.ActivityManager;
+import com.cxh.mvvmart.ui.user.UserActivity;
+import com.cxh.mvvmart.util.ToastUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +22,11 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding mMainBinding;
 
     @Override
+    protected boolean isInject() {
+        return false;
+    }
+
+    @Override
     protected boolean displayHomeAsUpEnabled() {
         return false;
     }
@@ -32,24 +37,15 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void injectDagger() {
-
-    }
-
-    @Override
     protected void initViewsAndEvents() {
         toolbarTitle.setText(R.string.app_name);
-        mMainBinding.mvpBtn.setOnClickListener(view -> pushPage(UserActivity.class));
+        mMainBinding.mvvm.setOnClickListener(view -> pushPage(UserActivity.class));
 
     }
 
     @Override
     protected void refreshState() {
 
-    }
-
-    public void dataBinding(View view) {
-        pushPage(DataBindingActivity.class);
     }
 
     private boolean mDoubleBackToExitPressedOnce = false;
@@ -61,9 +57,8 @@ public class MainActivity extends BaseActivity {
             ActivityManager.getInstance().appExit();
             return;
         }
-
         mDoubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "再次点击退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+        ToastUtils.show("再次点击退出" + getString(R.string.app_name));
 
         Observable.timer(2, TimeUnit.SECONDS)
                 .subscribe(aLong -> mDoubleBackToExitPressedOnce = false);

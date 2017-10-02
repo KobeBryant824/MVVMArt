@@ -1,37 +1,31 @@
 package com.cxh.mvvmart;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.text.format.DateFormat;
 
-import com.cxh.mvvmart.di.component.AppComponent;
-import com.cxh.mvvmart.di.component.DaggerAppComponent;
-import com.cxh.mvvmart.di.moduel.AppModule;
+import com.cxh.mvvmart.di.DaggerAppComponent;
 import com.cxh.mvvmart.util.FileUtils;
-import com.facebook.cache.disk.DiskCacheConfig;
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.socks.library.KLog;
 import com.squareup.leakcanary.LeakCanary;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import dagger.android.AndroidInjector;
+import dagger.android.support.DaggerApplication;
 
 /**
  * @author Hai (haigod7[at]gmail[dot]com)
  *         2017/3/6
  */
-public class App extends Application implements Thread.UncaughtExceptionHandler {
+public class App extends DaggerApplication implements Thread.UncaughtExceptionHandler {
 
     private static App mInstance;
-    private static AppComponent mAppComponent;
-    private static RestfulApi sRestfulApi;
 
     public static App getInstance() {
         return mInstance;
@@ -49,18 +43,7 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
 
         mInstance = this;
 
-        DiskCacheConfig mainDiskCacheConfig = DiskCacheConfig.newBuilder(this)
-                .setBaseDirectoryPath(new File(getExternalCacheDir(), "fresco"))
-                .setBaseDirectoryName("fresco_sample")
-                .setMaxCacheSize(100 * 1024 * 1024)//100MB
-                .build();
-
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
-                .setMainDiskCacheConfig(mainDiskCacheConfig)
-                .build();
-        Fresco.initialize(this , config);
-
-        KLog.init(Constant.BUILD, "mtcispdoctor");
+        KLog.init(Constant.BUILD, getString(R.string.app_name));
 
         if (!checkDeviceHasNavigationBar(this))
             AutoLayoutConifg.getInstance().useDeviceSize();//拿设备的物理高度(状态栏+导航栏)进行百分比化
@@ -70,20 +53,12 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
                 .installDefaultEventBus();
 
         if (!Constant.BUILD) Thread.currentThread().setUncaughtExceptionHandler(this);
-        
-        mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .build();
 
     }
 
-    public static AppComponent getAppComponent() {
-        return mAppComponent;
-    }
-
-    public static RestfulApi RestfulApi() {
-        if (null == sRestfulApi) sRestfulApi = mAppComponent.getRetrofit().create(RestfulApi.class);
-        return sRestfulApi;
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerAppComponent.builder().create(this);
     }
 
     @Override
@@ -132,4 +107,6 @@ public class App extends Application implements Thread.UncaughtExceptionHandler 
         }
         return hasNavigationBar;
     }
+
+
 }

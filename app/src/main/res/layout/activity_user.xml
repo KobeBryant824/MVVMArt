@@ -1,17 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
-
-    <data>
-
-        <import type="com.cxh.mvvmart.R"/>
-
-        <variable
-            name="viewModel"
-            type="com.cxh.mvvmart.viewmodel.UserViewModel"/>
-
-    </data>
-
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,47 +13,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <FrameLayout
+                android:id="@+id/content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="3"
-                    android:text="@{viewModel.mStrarsStr.get()}"/>
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:text="点我"
-                    bind:clickCommand="@{viewModel.mReplyCommand}"/>
-
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:scaleType="fitXY"
-                    bind:path="@{viewModel.mPath.get()}"
-                    bind:placeholderImage="@drawable/meizi"/>
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:layout_gravity="center_horizontal"
-                    bind:placeholderImageRes="@{R.drawable.meizi}"
-                    bind:request_height="@{200}"
-                    bind:request_width="@{200}"
-                    bind:uri="@{@string/path}"/>
-
-
-            </LinearLayout>
-
+                android:layout_height="match_parent"/>
         </com.fingdo.statelayout.StateLayout>
     </LinearLayout>
 

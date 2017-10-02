@@ -1,9 +1,9 @@
-package com.cxh.mvvmart.di.moduel;
+package com.cxh.mvvmart.di;
 
-import android.app.Application;
 import android.content.Context;
 
-import com.cxh.mvvmart.di.qualifier.ContextLife;
+import com.cxh.mvvmart.App;
+import com.cxh.mvvmart.RestfulApi;
 import com.cxh.mvvmart.manager.CacheInterceptor;
 import com.cxh.mvvmart.util.SDCardUtils;
 import com.socks.library.KLog;
@@ -12,6 +12,7 @@ import java.io.File;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -29,24 +30,20 @@ import static com.cxh.mvvmart.Constant.BASEURL;
  *         2017/6/7
  */
 @Module
-public class AppModule {
+abstract class AppModule {
 
-    private Application mApplication;
+    @Binds
+    abstract Context bindContext(App application);
 
-    public AppModule(Application application) {
-        mApplication = application;
+    @Provides
+    @Singleton
+    static RestfulApi provideRestfulApi(Retrofit retrofit){
+        return retrofit.create(RestfulApi.class);
     }
 
     @Provides
     @Singleton
-    @ContextLife
-    Context provideApplication() {
-        return mApplication.getApplicationContext();
-    }
-
-    @Provides
-    @Singleton
-    Retrofit provideRetrofit(OkHttpClient okHttpClient) {
+    static Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl(BASEURL)
                 .client(okHttpClient)
@@ -58,22 +55,22 @@ public class AppModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient() {
+    static OkHttpClient provideOkHttpClient(App application) {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(KLog::e);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY); //包含header、body数据
 
         return new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addNetworkInterceptor(new CacheInterceptor())
-                .cache(getCache())
+                .cache(getCache(application))
                 .build();
     }
 
-    private Cache getCache() {
+    private static Cache getCache(App application) {
         File cacheFile;
         if (SDCardUtils.isSDCardEnable())
-            cacheFile = new File(mApplication.getExternalCacheDir().toString(), "cache");
-        else cacheFile = new File(mApplication.getCacheDir().toString(), "cache");
+            cacheFile = new File(application.getExternalCacheDir().toString(), "cache");
+        else cacheFile = new File(application.getCacheDir().toString(), "cache");
         int cacheSize = 10 * 1024 * 1024;
         return new Cache(cacheFile, cacheSize);
     }
