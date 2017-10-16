@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.cxh.mvvmart.R;
 import com.cxh.mvvmart.manager.ActivityManager;
 import com.cxh.mvvmart.ui.widget.autolayout.AutoCardView;
+import com.cxh.mvvmart.ui.widget.autolayout.AutoConstraintLayout;
 import com.cxh.mvvmart.ui.widget.autolayout.AutoRadioGroup;
 import com.cxh.mvvmart.ui.widget.autolayout.AutoScrollView;
 import com.cxh.mvvmart.ui.widget.autolayout.AutoTabLayout;
@@ -41,7 +42,8 @@ import dagger.android.support.HasSupportFragmentInjector;
  * @author Hai (haigod7[at]gmail[dot]com)
  *         2017/3/6
  */
-public abstract class BaseActivity extends RxAppCompatActivity implements StateLayout.OnViewRefreshListener, HasFragmentInjector, HasSupportFragmentInjector {
+public abstract class BaseActivity extends RxAppCompatActivity implements StateLayout.OnViewRefreshListener,
+        HasFragmentInjector, HasSupportFragmentInjector {
 
     private static final String LAYOUT_LINEARLAYOUT = "LinearLayout";
     private static final String LAYOUT_FRAMELAYOUT = "FrameLayout";
@@ -51,6 +53,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
     private static final String LAYOUT_CARDVIEW = "android.support.v7.widget.CardView";
     private static final String LAYOUT_TOOLBAR = "android.support.v7.widget.Toolbar";
     private static final String LAYOUT_TABLAYOUT = "android.support.design.widget.TabLayout";
+    private static final String LAYOUT_CONSTRAINTLAYOUT = "android.support.constraint.ConstraintLayout";
 
     private StateLayout stateLayout;
     public Toolbar toolbar;
@@ -111,6 +114,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
         if (name.equals(LAYOUT_SCROLLVIEW)) view = new AutoScrollView(context, attrs);
 
         if (name.equals(LAYOUT_TABLAYOUT)) view = new AutoTabLayout(context, attrs);
+
+        if (name.equals(LAYOUT_CONSTRAINTLAYOUT)) view = new AutoConstraintLayout(context, attrs);
 
         if (view != null) return view;
 
