@@ -1,7 +1,5 @@
 ## MVVM
 ![screenshot_1](./img/mvvm.png)
-![screenshot_1](./img/databinding.png)
-
    
 ## Thanks ##
 
