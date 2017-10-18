@@ -50,6 +50,7 @@ public class App extends DaggerApplication implements Thread.UncaughtExceptionHa
 
         EventBus.builder()
                 .throwSubscriberException(Constant.BUILD)//只有在BUILD模式下，会抛出错误异常
+                .addIndex(new MyEventBusIndex())
                 .installDefaultEventBus();
 
         if (!Constant.BUILD) Thread.currentThread().setUncaughtExceptionHandler(this);

@@ -1,9 +1,15 @@
 <component name="ProjectDictionaryState">
   <dictionary name="41754">
     <words>
+      <w>cardview</w>
       <w>constraintlayout</w>
+      <w>framelayout</w>
+      <w>linearlayout</w>
       <w>mvvmart</w>
+      <w>radiogroup</w>
+      <w>relativelayout</w>
       <w>strars</w>
+      <w>tablayout</w>
     </words>
   </dictionary>
 </component>
