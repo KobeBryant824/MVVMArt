@@ -23,7 +23,7 @@ import java.util.Properties;
  *         2017/3/6
  */
 public class FileUtils {
-	public static final String ROOT_DIR = App.getInstance().getString(R.string.app_name);
+	public static final String ROOT_DIR = App.Companion.getInstance().getString(R.string.app_name);
 	public static final String DOWNLOAD_DIR = "download";
 	public static final String CACHE_DIR = "cache";
 	public static final String ICON_DIR = "icon";
@@ -43,7 +43,7 @@ public class FileUtils {
 	/** 获取应用目录，当SD卡存在时，获取SD卡上的目录，当SD卡不存在时，获取应用的cache目录 */
 	public static String getDir(String name) {
 		StringBuilder sb = new StringBuilder();
-		if (SDCardUtils.isSDCardEnable()) {
+		if (SDCardUtils.INSTANCE.isSDCardEnable()) {
 			sb.append(getExternalStoragePath());
 		} else {
 			sb.append(getCachePath());
@@ -70,7 +70,7 @@ public class FileUtils {
 
 	/** 获取应用的cache目录 */
 	public static String getCachePath() {
-		File f = App.getInstance().getCacheDir();
+		File f = App.Companion.getInstance().getCacheDir();
 		if (null == f) {
 			return null;
 		} else {
@@ -105,7 +105,7 @@ public class FileUtils {
 			in = new FileInputStream(srcFile);
 			out = new FileOutputStream(destFile);
 			byte[] buffer = new byte[1024];
-			int i ;
+			int i = -1;
 			while ((i = in.read(buffer)) > 0) {
 				out.write(buffer, 0, i);
 				out.flush();
