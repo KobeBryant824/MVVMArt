@@ -124,10 +124,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
 
     @Override
     protected void onDestroy() {
+        if (isUseEventBus()) EventBus.getDefault().unregister(this);
         super.onDestroy();
         ActivityManager.getInstance().popOneActivity(this);
-
-        if (isUseEventBus()) EventBus.getDefault().unregister(this);
     }
 
     private void setupToolbar() {
@@ -170,7 +169,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements StateL
 
     @Subscribe
     public void onEvent(String event) {
-        KLog.e();
+        KLog.e(event);
     }
 
     public void showLoadingView() {

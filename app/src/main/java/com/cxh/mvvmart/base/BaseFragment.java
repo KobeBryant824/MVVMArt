@@ -105,14 +105,13 @@ public abstract class BaseFragment extends RxFragment implements StateLayout.OnV
 
     @Subscribe
     public void onEvent(String event) {
-        KLog.e();
+        KLog.e(event);
     }
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-
         if (isUseEventBus()) EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 
     protected boolean isInject() {

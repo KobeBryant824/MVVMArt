@@ -1,6 +1,5 @@
 package com.cxh.mvvmart.rx.exception;
 
-
 import com.socks.library.KLog;
 
 import org.json.JSONException;

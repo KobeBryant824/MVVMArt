@@ -1,6 +1,5 @@
 package com.cxh.mvvmart.rx.function;
 
-
 import com.cxh.mvvmart.rx.exception.ExceptionEngine;
 
 import io.reactivex.Observable;

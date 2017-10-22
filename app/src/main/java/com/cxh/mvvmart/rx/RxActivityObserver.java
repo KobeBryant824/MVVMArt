@@ -1,6 +1,5 @@
 package com.cxh.mvvmart.rx;
 
-
 import com.cxh.mvvmart.Constant;
 import com.cxh.mvvmart.base.BaseActivity;
 import com.cxh.mvvmart.rx.exception.ApiException;

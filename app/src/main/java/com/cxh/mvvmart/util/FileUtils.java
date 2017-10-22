@@ -23,23 +23,19 @@ import java.util.Properties;
  *         2017/3/6
  */
 public class FileUtils {
-
 	public static final String ROOT_DIR = App.getInstance().getString(R.string.app_name);
 	public static final String DOWNLOAD_DIR = "download";
 	public static final String CACHE_DIR = "cache";
 	public static final String ICON_DIR = "icon";
 
-	/** 获取下载目录 */
 	public static String getDownloadDir() {
 		return getDir(DOWNLOAD_DIR);
 	}
 
-	/** 获取缓存目录 */
 	public static String getCacheDir() {
 		return getDir(CACHE_DIR);
 	}
 
-	/** 获取icon目录 */
 	public static String getIconDir() {
 		return getDir(ICON_DIR);
 	}
@@ -109,7 +105,7 @@ public class FileUtils {
 			in = new FileInputStream(srcFile);
 			out = new FileOutputStream(destFile);
 			byte[] buffer = new byte[1024];
-			int i = -1;
+			int i ;
 			while ((i = in.read(buffer)) > 0) {
 				out.write(buffer, 0, i);
 				out.flush();

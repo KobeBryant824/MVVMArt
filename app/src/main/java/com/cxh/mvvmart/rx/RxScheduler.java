@@ -1,6 +1,5 @@
 package com.cxh.mvvmart.rx;
 
-
 import com.cxh.mvvmart.rx.function.RetryWithDelay;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 

@@ -1,6 +1,5 @@
 package com.cxh.mvvmart.rx.function;
 
-
 import com.cxh.mvvmart.base.Result;
 import com.cxh.mvvmart.rx.exception.ServerException;
 

@@ -1,6 +1,5 @@
 package com.cxh.mvvmart;
 
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 
